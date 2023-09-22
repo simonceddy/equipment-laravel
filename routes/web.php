@@ -1,10 +1,14 @@
 <?php
 
-use App\Http\Controllers\BrandListController;
-use App\Http\Controllers\ItemListController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ShowBrandController;
-use App\Http\Controllers\ShowItemController;
+use App\Http\Controllers\{
+    BrandListController,
+    ItemListController,
+    ProfileController,
+    ShowBrandController,
+    ShowItemController,
+    ShowTypeController,
+    TypeListController
+};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -43,5 +47,7 @@ Route::get('/brand/{brand}', ShowBrandController::class);
 Route::get('/brands', BrandListController::class);
 Route::get('/item/{item}', ShowItemController::class);
 Route::get('/items', ItemListController::class);
+Route::get('/type/{type}', ShowTypeController::class);
+Route::get('/types', TypeListController::class);
 
 require __DIR__.'/auth.php';

@@ -19,7 +19,7 @@ class BrandListController extends Controller
     public function __invoke(Request $request)
     {
         return Inertia::render('Brands/ListBrands', [
-            'brands' => Brand::all()
+            'brands' => Brand::orderBy('name')->get()
         ]);
     }
 }

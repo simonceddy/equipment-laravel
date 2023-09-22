@@ -1,9 +1,11 @@
 import { Head, Link } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
+import TypeList from '@/Components/Types/TypeList';
+import TypeListItem from '@/Components/Types/TypeListItem';
 
 function ShowItem({ auth, item }) {
-  console.log(item);
+  // console.log(item);
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -28,6 +30,19 @@ function ShowItem({ auth, item }) {
             {item.url}
           </a>
         )}
+        <div>
+          {item.types && (
+          <TypeList>
+            {item.types.map((type) => (
+              <TypeListItem key={`item-${item.id}-type-${type.id}`}>
+                <Link href={`/type/${type.id}`}>
+                  {type.name}
+                </Link>
+              </TypeListItem>
+            ))}
+          </TypeList>
+          )}
+        </div>
       </Content>
     </AuthenticatedLayout>
   );

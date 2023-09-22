@@ -145,6 +145,6 @@ class ItemSeeder extends Seeder
     public function run(): void
     {
         // Item::factory(500)->create();
-        $this->seedTestData();
+        // $this->seedTestData();
     }
 }

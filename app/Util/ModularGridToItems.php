@@ -59,9 +59,10 @@ class ModularGridToItems
                 echo 'No id found on module!' . PHP_EOL;
                 return false;
             }
-            if (isset($this->ids[$m['id']])
-                || Item::query()->where('refId', $m['id'])->count() > 0
-            ) {
+            if (isset($this->ids[$m['id']])) {
+                return false;
+            }
+            if (Item::query()->where('refId', $m['id'])->count() > 0) {
                 echo 'Item ' . ($m['name'] ?? $m['id']) . ' already exists. Skipping...' . PHP_EOL;
                 return false;
             }
@@ -196,7 +197,10 @@ class ModularGridToItems
         if (!$modules) {
             throw new \RuntimeException('Could not find module data.');
         }
-        $this->processModules($this->filterModules($modules));
+        $filtered = $this->filterModules($modules);
+        if (empty($filtered)) {
+            echo PHP_EOL . 'No new modules to add.' . PHP_EOL . PHP_EOL;
+        } else $this->processModules($filtered);
 
     }
 }

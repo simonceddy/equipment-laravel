@@ -27,6 +27,9 @@ export default function Authenticated({ user, header, children }) {
                 <NavLink href="/brands">
                   Brands
                 </NavLink>
+                <NavLink href="/types">
+                  Types
+                </NavLink>
                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                   Dashboard
                 </NavLink>
@@ -103,6 +106,9 @@ export default function Authenticated({ user, header, children }) {
             </ResponsiveNavLink>
             <ResponsiveNavLink href="/brands">
               Brands
+            </ResponsiveNavLink>
+            <ResponsiveNavLink href="/types">
+              Types
             </ResponsiveNavLink>
             <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
               Dashboard

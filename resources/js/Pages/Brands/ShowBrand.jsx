@@ -5,7 +5,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
 
 function ShowBrand({ auth, brand }) {
-  console.log(brand);
+  // console.log(brand);
   return (
     <AuthenticatedLayout
       user={auth.user}
