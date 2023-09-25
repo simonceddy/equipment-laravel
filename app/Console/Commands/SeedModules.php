@@ -37,25 +37,14 @@ class SeedModules extends Command
         $url = $this->argument('url');
         if (!$url) $this->error('URL is required!');
         else {
-            $res = $this->mg->client->request('GET', $url);
-
-            $status = $res->getStatusCode();
-            if ($status === 404) $this->error('Unable to resolve url: ' . $url);
-            else if ($status !== 200) $this->error('Bad status for url: ' . $url);
-            else {
-                $this->info('Response received...');
-                $body = $res->getBody()->getContents();
-                $this->info('Crawling for json...');
-                $json = $this->mg->crawl($body)->rackJson();
-                try {
-                    (new ModularGridToItems($this->mg))->process($json);
-                    $this->info('Items stored successfully!');
-                } catch (\Throwable $e) {
-                    $this->error('An error was encountered!');
-                    throw $e;
-                }
-
+            try {
+                (new ModularGridToItems($this->mg))->processURL($url);
+                $this->info('Items stored successfully!');
+            } catch (\Throwable $e) {
+                $this->error('An error was encountered!');
+                throw $e;
             }
+
         }
     }
 }

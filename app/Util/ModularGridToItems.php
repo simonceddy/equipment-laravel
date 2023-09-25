@@ -25,9 +25,21 @@ class ModularGridToItems
 
     private ?string $currentType = null;
 
+    private ?string $forceType = null;
+
+    private ?ItemType $forceTypeInstance = null;
+
     public function __construct(private ?Wrapper $mg)
     {
         if (!$mg) $this->mg = new Wrapper();
+    }
+
+    private function forcedType()
+    {
+        if ($this->forceType && !isset($this->forceTypeInstance)) {
+            $this->forceTypeInstance = $this->getType($this->forceType);
+        }
+        return $this->forceTypeInstance;
     }
 
     private function getBrand(string $refId)
@@ -106,7 +118,12 @@ class ModularGridToItems
     private function updateItemFromRes(Item $item, $res)
     {
         $name = $item->getAttribute('name');
-        if ($this->currentType) {
+        if ($this->forceType) {
+            // TODO tidy duplicate code
+            $t1 = $this->forcedType();
+            $item->types()->attach($t1);
+            echo 'Type: ' . $t1->getAttribute('name') . ' attached to ' . $item->getAttribute('name') . PHP_EOL;
+        } else if ($this->currentType) {
             $t1 = $this->getType($this->currentType);
             $item->types()->attach($t1);
             echo 'Type: ' . $t1->getAttribute('name') . ' attached to ' . $item->getAttribute('name') . PHP_EOL;
@@ -201,6 +218,31 @@ class ModularGridToItems
         if (empty($filtered)) {
             echo PHP_EOL . 'No new modules to add.' . PHP_EOL . PHP_EOL;
         } else $this->processModules($filtered);
+    }
 
+    public function processURL(string $url)
+    {
+        $res = $this->mg->client->request('GET', $url);
+
+        $status = $res->getStatusCode();
+
+        if ($status === 404) {
+            echo 'Unable to resolve url: ' . $url . PHP_EOL;
+            return false;
+        }
+        else if ($status !== 200) {
+            echo 'Bad status for url: ' . $url . PHP_EOL;
+            return false;
+        }
+
+        $a = $this->mg->url::extractCategory($url);
+        if ($a && static::$categoryTypes[$a]) {
+            $this->forceType = static::$categoryTypes[$a];
+        }
+        echo 'Response received...' . PHP_EOL;
+        $body = $res->getBody()->getContents();
+        echo 'Crawling for json...' . PHP_EOL;
+        $json = $this->mg->crawl($body)->rackJson();
+        return $this->process($json);
     }
 }
