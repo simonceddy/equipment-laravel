@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Items;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
 
-class ItemController extends Controller
+class ItemAPI extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,14 +19,6 @@ class ItemController extends Controller
             'total' => $q->count(),
             'items' => $q->get(),
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -43,14 +36,6 @@ class ItemController extends Controller
     {
         $item->load(['brand', 'types']);
         return response()->json($item);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Item $item)
-    {
-        //
     }
 
     /**

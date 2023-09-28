@@ -1,7 +1,13 @@
-import { Head, Link } from '@inertiajs/react';
+/* eslint-disable import/no-unresolved */
+import { Head, router, useRemember } from '@inertiajs/react';
+import { useCallback } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
 import Table from '@/Components/Tables/Table';
+import Pagination from '@/Components/Pagination';
+import ListLink from '@/Components/ListLink';
+import TextInput from '@/Components/Forms/TextInput';
+import FormButton from '@/Components/Forms/FormButton';
 
 const cols = [
   { key: 'brand', label: 'Brand' },
@@ -10,21 +16,26 @@ const cols = [
 
 const renderers = {
   brand: (item) => item.brand && (
-    <Link href={`/brand/${item.brand.id}`}>
+    <ListLink href={`/brand/${item.brand.id}`}>
       {item.brand.name}
-    </Link>
+    </ListLink>
   ),
   name: (item) => (
-    <Link href={`/item/${item.id}`}>
+    <ListLink href={`/item/${item.id}`}>
       {item.name}
-    </Link>
+    </ListLink>
   )
 };
 
 /* eslint-disable no-unused-vars */
 function ListItems({
-  items = [], total, page = 1, auth
+  data, auth
 }) {
+  const [filter, setFilter] = useRemember('');
+  const Pgn = useCallback(() => (
+    <Pagination current={data.current_page} total={data.last_page} baseURL="/items" />
+  ), [data]);
+
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -32,8 +43,32 @@ function ListItems({
     >
       <Head title="Items" />
       <Content>
-        <div>{total} items in database</div>
-        <Table cols={cols} renderers={renderers} rows={items} />
+        <div className="row justify-between items-center w-full">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (filter.trim().length > 0) {
+                router.get(`/items?filter=${filter}`);
+              }
+            }}
+            className="row all-center m-2 p-2"
+          >
+            <TextInput
+              label="Filter:"
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+            />
+            <FormButton submits>
+              Go
+            </FormButton>
+          </form>
+          <FormButton onClick={() => router.get('/brand/create')}>
+            Add New Brand
+          </FormButton>
+        </div>
+        <Pgn />
+        <Table cols={cols} renderers={renderers} rows={data.data} />
+        <Pgn />
       </Content>
     </AuthenticatedLayout>
   );

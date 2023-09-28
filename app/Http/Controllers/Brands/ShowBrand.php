@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Brands;
 
+use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Inertia\Inertia;
 
-class ShowBrandController extends Controller
+class ShowBrand extends Controller
 {
     public function __construct()
     {

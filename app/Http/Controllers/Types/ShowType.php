@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Types;
 
+use App\Http\Controllers\Controller;
 use App\Models\ItemType;
 use Inertia\Inertia;
 
-class ShowTypeController extends Controller
+class ShowType extends Controller
 {
     public function __construct()
     {
@@ -17,9 +18,12 @@ class ShowTypeController extends Controller
      */
     public function __invoke(ItemType $type)
     {
-        $type->load('items');
+        $type->load(['items', 'items.brand']);
+        $totalItems = $type->items()->count();
+        // dd($totalItems);
         return Inertia::render('Types/ShowType', [
-            'type' => $type
+            'type' => $type,
+            'totalItems' => $totalItems,
         ]);
     }
 }

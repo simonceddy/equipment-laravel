@@ -1,22 +1,37 @@
-import { Head, Link } from '@inertiajs/react';
+/* eslint-disable import/no-unresolved */
+import {
+  Head, Link, router, useRemember
+} from '@inertiajs/react';
+import { useCallback } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
 import Table from '@/Components/Tables/Table';
+import Pagination from '@/Components/Pagination';
+import TextInput from '@/Components/Forms/TextInput';
+import FormButton from '@/Components/Forms/FormButton';
 
 const typesCols = [
   { label: 'Name', key: 'name' },
+  { label: 'Items', key: 'items_count' },
 ];
 
 const renderers = {
   name: (type) => (
-    <Link href={`/type/${type.id}`}>
+    <Link className="w-full block text-left hover:underline" href={`/type/${type.id}`}>
       {type.name}
     </Link>
   )
 };
 
 /* eslint-disable no-unused-vars */
-function ListTypes({ types = [], page = 1, auth }) {
+function ListTypes({ data, auth }) {
+  // console.log(types);
+  const [filter, setFilter] = useRemember('');
+
+  const Pgn = useCallback(() => (
+    <Pagination current={data.current_page} total={data.last_page} baseURL="/types" />
+  ), [data]);
+
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -24,7 +39,34 @@ function ListTypes({ types = [], page = 1, auth }) {
     >
       <Head title="Types" />
       <Content>
-        <Table rows={types} cols={typesCols} renderers={renderers} />
+        <div
+          className="row justify-between items-center w-full"
+        >
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (filter.trim().length > 0) {
+                router.get(`/types?filter=${filter}`);
+              }
+            }}
+            className="row all-center m-2 p-2"
+          >
+            <TextInput
+              label="Filter:"
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+            />
+            <FormButton submits>
+              Go
+            </FormButton>
+          </form>
+          <FormButton onClick={() => router.get('/brand/create')}>
+            Add New Brand
+          </FormButton>
+        </div>
+        <Pgn />
+        <Table rows={data.data} cols={typesCols} renderers={renderers} />
+        <Pgn />
       </Content>
     </AuthenticatedLayout>
   );

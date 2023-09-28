@@ -1,14 +1,19 @@
 <?php
 
 use App\Http\Controllers\{
-    BrandListController,
-    ItemListController,
     ProfileController,
-    ShowBrandController,
-    ShowItemController,
-    ShowTypeController,
-    TypeListController
 };
+use App\Http\Controllers\Brands\{
+    ListBrands,
+    ShowBrand,
+    CreateBrand,
+    DeleteBrand,
+    EditBrand,
+    StoreBrand,
+    UpdateBrand
+};
+use App\Http\Controllers\Items\{ListItems, EditItem, ShowItem, UpdateItem};
+use App\Http\Controllers\Types\{DeleteType, ListTypes, ShowType};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -43,11 +48,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/brand/{brand}', ShowBrandController::class);
-Route::get('/brands', BrandListController::class);
-Route::get('/item/{item}', ShowItemController::class);
-Route::get('/items', ItemListController::class);
-Route::get('/type/{type}', ShowTypeController::class);
-Route::get('/types', TypeListController::class);
+Route::get('/brands', ListBrands::class);
+Route::get('/brand/create', CreateBrand::class);
+Route::post('/brand/store', StoreBrand::class);
+Route::get('/brand/{brand}', ShowBrand::class);
+Route::get('/brand/{brand}/edit', EditBrand::class);
+Route::put('/brand/{brand}', UpdateBrand::class);
+Route::delete('/brand/{brand}', DeleteBrand::class);
+
+Route::get('/items', ListItems::class);
+Route::get('/item/{item}', ShowItem::class);
+Route::get('/item/{item}/edit', EditItem::class);
+Route::put('/item/{item}', UpdateItem::class);
+
+Route::get('/type/{type}', ShowType::class);
+Route::delete('/type/{type}', DeleteType::class);
+Route::get('/types', ListTypes::class);
+
 
 require __DIR__.'/auth.php';

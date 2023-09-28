@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Items;
 
+use App\Http\Controllers\Controller;
 use App\Models\Item;
 use Inertia\Inertia;
 
-class ShowItemController extends Controller
+class ShowItem extends Controller
 {
     public function __construct()
     {

@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\BrandController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ItemController;
+use App\Http\Controllers\Brands\BrandsAPI;
+use App\Http\Controllers\Items\ItemAPI;
 use App\Http\Controllers\TotalBrandsController;
 use App\Http\Controllers\TotalItemsController;
+use App\Http\Controllers\Types\TypesAPI;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +27,7 @@ Route::get('brand/total', TotalBrandsController::class);
 Route::get('item/total', TotalItemsController::class);
 
 Route::apiResources([
-    'brand' => BrandController::class,
-    'item' => ItemController::class,
-    'category' => CategoryController::class,
+    'brand' => BrandsAPI::class,
+    'item' => ItemAPI::class,
+    'type' => TypesAPI::class,
 ]);

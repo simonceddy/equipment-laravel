@@ -12,7 +12,10 @@ function Table({ cols = [], rows = [], renderers = {} }) {
       </thead>
       <tbody>
         {rows.map((row, id) => (
-          <tr key={`table-row-${id}`}>
+          <tr
+            className="odd:bg-slate-950 text-white odd:hover:bg-blue-800 even:bg-gray-700 even:hover:bg-green-800"
+            key={`table-row-${id}`}
+          >
             {cols.map(({ key }) => (
               <td key={`table-row-${id}-cell-${key}`}>
                 {renderers[key] ? renderers[key](row) : row[key]}

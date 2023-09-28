@@ -1,27 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Types;
 
-use App\Http\Requests\StoreItemTypeRequest;
-use App\Http\Requests\UpdateItemTypeRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\{StoreItemTypeRequest, UpdateItemTypeRequest};
 use App\Models\ItemType;
 
-class ItemTypeController extends Controller
+class TypesAPI extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json(ItemType::paginate(32));
     }
 
     /**
@@ -37,15 +29,7 @@ class ItemTypeController extends Controller
      */
     public function show(ItemType $itemType)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ItemType $itemType)
-    {
-        //
+        return response()->json($itemType);
     }
 
     /**

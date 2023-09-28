@@ -1,6 +1,6 @@
 function TypeList({ children }) {
   return (
-    <ul className="">
+    <ul className="p-2">
       {children}
     </ul>
   );
