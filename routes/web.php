@@ -12,7 +12,14 @@ use App\Http\Controllers\Brands\{
     StoreBrand,
     UpdateBrand
 };
-use App\Http\Controllers\Items\{ListItems, EditItem, ShowItem, UpdateItem};
+use App\Http\Controllers\Items\{
+    AddTypeToItem,
+    ListItems,
+    EditItem,
+    RemoveTypeFromItem,
+    ShowItem,
+    UpdateItem
+};
 use App\Http\Controllers\Types\{DeleteType, ListTypes, ShowType};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +66,8 @@ Route::delete('/brand/{brand}', DeleteBrand::class);
 Route::get('/items', ListItems::class);
 Route::get('/item/{item}', ShowItem::class);
 Route::get('/item/{item}/edit', EditItem::class);
+Route::put('/item/{item}/addType/{type}', AddTypeToItem::class);
+Route::put('/item/{item}/removeType/{type}', RemoveTypeFromItem::class);
 Route::put('/item/{item}', UpdateItem::class);
 
 Route::get('/type/{type}', ShowType::class);

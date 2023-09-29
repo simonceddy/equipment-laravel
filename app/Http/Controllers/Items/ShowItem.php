@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Items;
 
 use App\Http\Controllers\Controller;
 use App\Models\Item;
+use App\Models\ItemType;
 use Inertia\Inertia;
 
 class ShowItem extends Controller
@@ -20,7 +21,8 @@ class ShowItem extends Controller
     {
         $item->load(['brand', 'types']);
         return Inertia::render('Items/ShowItem', [
-            'item' => $item
+            'item' => $item,
+            'types' => ItemType::orderBy('name')->get(['id', 'name']),
         ]);
     }
 }

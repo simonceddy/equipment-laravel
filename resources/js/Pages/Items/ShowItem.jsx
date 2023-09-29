@@ -1,15 +1,13 @@
 /* eslint-disable import/no-unresolved */
 import { Head, Link, router } from '@inertiajs/react';
-import { FaLink } from 'react-icons/fa';
 import { confirmAlert } from 'react-confirm-alert';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
-import TypeList from '@/Components/Types/TypeList';
-import TypeListItem from '@/Components/Types/TypeListItem';
-import ListLink from '@/Components/ListLink';
 import FormButton from '@/Components/Forms/FormButton';
+import ItemTypes from '@/Components/Items/ItemTypes';
+import ItemURL from '@/Components/Items/ItemURL';
 
-function ShowItem({ auth, item }) {
+function ShowItem({ auth, item, types }) {
   // console.log(item);
   return (
     <AuthenticatedLayout
@@ -25,35 +23,17 @@ function ShowItem({ auth, item }) {
             </Link>
           </h2>
         )}
-        {item.url && item.url.length > 0 && (
-          <a
-            className="italic row all-center m-2 hover:underline"
-            rel="noreferrer"
-            target="_blank"
-            href={item.url}
-          >
-            <FaLink size={18} className="mr-1" />
-            {item.url}
-          </a>
-        )}
-        <div className="w-5/6 col bg-green-500/30 rounded-lg">
-          <span
-            className="text-lg rounded-t-lg font-bold underline p-1 w-full text-left bg-slate-500/30"
-          >
-            Associated Types
-          </span>
-          {item.types && (
-          <TypeList>
-            {item.types.map((type) => (
-              <TypeListItem key={`item-${item.id}-type-${type.id}`}>
-                <ListLink href={`/type/${type.id}`}>
-                  {type.name}
-                </ListLink>
-              </TypeListItem>
-            ))}
-          </TypeList>
-          )}
-        </div>
+        {item.url && item.url.length > 0 && (<ItemURL url={item.url} />)}
+        <ItemTypes
+          itemTypes={item.types}
+          types={types}
+          onAdd={(id) => {
+            router.put(`/item/${item.id}/addType/${id}`);
+          }}
+          onRemove={(id) => {
+            router.put(`/item/${item.id}/removeType/${id}`);
+          }}
+        />
         <FormButton onClick={() => router.get(`/item/${item.id}/edit`)}>
           Edit
         </FormButton>
