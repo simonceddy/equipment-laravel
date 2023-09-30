@@ -20,7 +20,7 @@ function ItemTypes({
     [itemTypes]
   );
 
-  console.log(selectorTypes);
+  // console.log(selectorTypes);
   return (
     <div className="w-5/6 col bg-green-500/30 rounded-lg">
       <span

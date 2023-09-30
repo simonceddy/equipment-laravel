@@ -9,6 +9,7 @@ import Table from '@/Components/Tables/Table';
 import Pagination from '@/Components/Pagination';
 import TextInput from '@/Components/Forms/TextInput';
 import FormButton from '@/Components/Forms/FormButton';
+import baseUrl from '@/util/baseUrl';
 
 const typesCols = [
   { label: 'Name', key: 'name' },
@@ -29,7 +30,11 @@ function ListTypes({ data, auth }) {
   const [filter, setFilter] = useRemember('');
 
   const Pgn = useCallback(() => (
-    <Pagination current={data.current_page} total={data.last_page} baseURL="/types" />
+    <Pagination
+      current={data.current_page}
+      total={data.last_page}
+      baseURL={baseUrl(router.activeVisit?.url) || '/types?'}
+    />
   ), [data]);
 
   return (

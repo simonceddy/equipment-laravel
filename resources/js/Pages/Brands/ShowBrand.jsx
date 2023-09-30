@@ -30,9 +30,9 @@ function ShowBrand({ auth, brand }) {
         )}
         <div className="m-2 border-2 p-2 border-slate-500 col justify-start items-start whitespace-pre-wrap overflow-y-scroll h-[500px] w-[500px]">
           <span className="row all-center w-full">
-            There are
+            There {brand.items?.length === 1 ? 'is' : 'are'}
             <span className="text-xl mx-1.5 italic font-mono font-bold">{brand.items?.length || 0}</span>
-            {brand.name} Items in the database
+            {brand.name} item{brand.items?.length === 1 ? '' : 's'} in the database
           </span>
           <ItemList>
             {brand.items.map((item, id) => (

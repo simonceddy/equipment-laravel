@@ -9,10 +9,25 @@ import Table from '@/Components/Tables/Table';
 import Pagination from '@/Components/Pagination';
 import FormButton from '@/Components/Forms/FormButton';
 import TextInput from '@/Components/Forms/TextInput';
+import baseUrl from '@/util/baseUrl';
 
 const cols = [
-  { key: 'name', label: 'Name' },
-  { key: 'items_count', label: 'Items' }
+  {
+    key: 'name',
+    label: () => (
+      <Link href={`${baseUrl(router.activeVisit?.url, 'sort')}sort=name`}>
+        Name
+      </Link>
+    )
+  },
+  {
+    key: 'items_count',
+    label: () => (
+      <Link href={`${baseUrl(router.activeVisit?.url, 'sort')}sort=items_count`}>
+        Items
+      </Link>
+    )
+  }
 ];
 
 const renderers = {
@@ -26,11 +41,14 @@ const renderers = {
 /* eslint-disable no-unused-vars */
 function ListBrands({ data, auth }) {
   // console.log(data);
-  const [filter, setFilter] = useRemember('');
+  const [filter, setFilter] = useRemember(router.activeVisit?.url?.searchParams?.get('filter') || '');
   const Pgn = useCallback(() => (
-    <Pagination current={data.current_page} total={data.last_page} baseURL="/brands" />
+    <Pagination
+      current={data.current_page}
+      total={data.last_page}
+      baseURL={baseUrl(router.activeVisit?.url) || '/brands?'}
+    />
   ), [data]);
-
   return (
     <AuthenticatedLayout
       user={auth.user}

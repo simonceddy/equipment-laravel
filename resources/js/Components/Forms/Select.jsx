@@ -4,7 +4,7 @@ const Select = forwardRef((props, ref) => {
   const nodeRef = ref || useRef(null);
   const opts = props.options || props.opts || [];
   return (
-    <select ref={nodeRef} {...props}>
+    <select ref={nodeRef} {...props} className={`dark:bg-black dark:text-white ${props.className}`}>
       {opts.map((o, id) => (
         <option
           value={o.id}

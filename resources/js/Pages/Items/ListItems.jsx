@@ -8,10 +8,11 @@ import Pagination from '@/Components/Pagination';
 import ListLink from '@/Components/ListLink';
 import TextInput from '@/Components/Forms/TextInput';
 import FormButton from '@/Components/Forms/FormButton';
+import baseUrl from '@/util/baseUrl';
 
 const cols = [
-  { key: 'brand', label: 'Brand' },
-  { key: 'name', label: 'Name' },
+  { key: 'brand', label: () => 'Brand' },
+  { key: 'name', label: () => 'Name' },
 ];
 
 const renderers = {
@@ -33,7 +34,11 @@ function ListItems({
 }) {
   const [filter, setFilter] = useRemember('');
   const Pgn = useCallback(() => (
-    <Pagination current={data.current_page} total={data.last_page} baseURL="/items" />
+    <Pagination
+      current={data.current_page}
+      total={data.last_page}
+      baseURL={baseUrl(router.activeVisit?.url) || '/items?'}
+    />
   ), [data]);
 
   return (

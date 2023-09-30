@@ -3,11 +3,17 @@ function Table({ cols = [], rows = [], renderers = {} }) {
     <table className="w-full border border-slate-400">
       <thead>
         <tr>
-          {cols.map((col, id) => (
-            <th className="border border-slate-400 text-lg text-left" key={`table-header-${id}`}>
-              {col.label}
-            </th>
-          ))}
+          {cols.map((col, id) => {
+            const label = (typeof col.label === 'function')
+              ? col.label(col)
+              : col.label;
+            console.log(label);
+            return (
+              <th className="border border-slate-400 text-lg text-left" key={`table-header-${id}`}>
+                {label}
+              </th>
+            );
+          })}
         </tr>
       </thead>
       <tbody>

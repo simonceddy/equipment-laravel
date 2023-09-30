@@ -19,13 +19,15 @@ class ListBrands extends Controller
      */
     public function __invoke(Request $request)
     {
+        // TODO validate
         $filter = $request->query('filter', false);
+        $sort = $request->query('sort', 'name');
         // $page = $request->query('page', false);
         /** @var \Illuminate\Database\Eloquent\Builder  */
         $q = $filter ? Brand::where('name', 'like', '%' . $filter . '%')->withCount('items')
             : Brand::withCount('items');
         /** @var \Illuminate\Pagination\LengthAwarePaginator */
-        $data = $q->orderBy('name')->paginate(32);
+        $data = $q->orderBy($sort)->paginate(32);
         // $lastPage = $data->lastPage();
         return Inertia::render('Brands/ListBrands', [
             'data' => $data

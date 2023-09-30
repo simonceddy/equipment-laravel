@@ -14,7 +14,7 @@ function PaginationButton({ children, href, disabled = false }) {
   );
 }
 
-function Pagination({ current, total, baseURL }) {
+function Pagination({ current, total, baseURL = '?' }) {
   if (!current || !total || !baseURL) {
     console.log('missing or no pagination data');
     return null;
@@ -26,16 +26,16 @@ function Pagination({ current, total, baseURL }) {
       </span>
       {total > 1 && (
         <div className="row all-center mx-2">
-          <PaginationButton href={`${baseURL}?page=1`} disabled={current <= 1}>
+          <PaginationButton href={`${baseURL}page=1`} disabled={current <= 1}>
             First
           </PaginationButton>
-          <PaginationButton href={`${baseURL}?page=${current - 1}`} disabled={current <= 1}>
+          <PaginationButton href={`${baseURL}page=${current - 1}`} disabled={current <= 1}>
             Previous
           </PaginationButton>
-          <PaginationButton href={`${baseURL}?page=${current + 1}`} disabled={current >= total}>
+          <PaginationButton href={`${baseURL}page=${current + 1}`} disabled={current >= total}>
             Next
           </PaginationButton>
-          <PaginationButton href={`${baseURL}?page=${total}`} disabled={current >= total}>
+          <PaginationButton href={`${baseURL}page=${total}`} disabled={current >= total}>
             Last
           </PaginationButton>
         </div>
