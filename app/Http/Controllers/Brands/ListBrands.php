@@ -22,13 +22,15 @@ class ListBrands extends Controller
         // TODO validate
         $filter = $request->query('filter', false);
         $sort = $request->query('sort', 'name');
-        // $page = $request->query('page', false);
+        $desc = $request->query('desc', 0);
+
         /** @var \Illuminate\Database\Eloquent\Builder  */
-        $q = $filter ? Brand::where('name', 'like', '%' . $filter . '%')->withCount('items')
+        $q = $filter
+            ? Brand::where('name', 'like', '%' . $filter . '%')->withCount('items')
             : Brand::withCount('items');
         /** @var \Illuminate\Pagination\LengthAwarePaginator */
-        $data = $q->orderBy($sort)->paginate(32);
-        // $lastPage = $data->lastPage();
+        $data = $q->orderBy($sort, $desc === '1' ? 'desc' : 'asc')->paginate(32);
+
         return Inertia::render('Brands/ListBrands', [
             'data' => $data
         ]);

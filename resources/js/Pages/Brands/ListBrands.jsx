@@ -10,12 +10,13 @@ import Pagination from '@/Components/Pagination';
 import FormButton from '@/Components/Forms/FormButton';
 import TextInput from '@/Components/Forms/TextInput';
 import baseUrl from '@/util/baseUrl';
+import sortUrl from '@/util/sortUrl';
 
 const cols = [
   {
     key: 'name',
     label: () => (
-      <Link href={`${baseUrl(router.activeVisit?.url, 'sort')}sort=name`}>
+      <Link href={sortUrl(router.activeVisit?.url, 'name')}>
         Name
       </Link>
     )
@@ -23,7 +24,7 @@ const cols = [
   {
     key: 'items_count',
     label: () => (
-      <Link href={`${baseUrl(router.activeVisit?.url, 'sort')}sort=items_count`}>
+      <Link href={sortUrl(router.activeVisit?.url, 'items_count')}>
         Items
       </Link>
     )
