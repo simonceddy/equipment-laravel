@@ -19,7 +19,7 @@ function Table({ cols = [], rows = [], renderers = {} }) {
       <tbody>
         {rows.map((row, id) => (
           <tr
-            className="odd:bg-slate-950 text-white odd:hover:bg-blue-800 even:bg-gray-700 even:hover:bg-green-800"
+            className="odd:bg-slate-100 text-black odd:hover:bg-blue-200 even:bg-gray-200 even:hover:bg-green-200 dark:odd:bg-slate-950 dark:text-white dark:odd:hover:bg-blue-800 dark:even:bg-gray-700 dark:even:hover:bg-green-800"
             key={`table-row-${id}`}
           >
             {cols.map(({ key }) => (

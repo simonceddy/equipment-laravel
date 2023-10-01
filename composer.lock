@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64627e7d3834b933efdfcfbff528fb1a",
+    "content-hash": "82fc6ee1f4c89c398ad9a8d157a78d95",
     "packages": [
         {
             "name": "brick/math",
@@ -8934,17 +8934,17 @@
             "time": "2023-02-07T11:34:05+00:00"
         },
         {
-            "name": "simoneddy/mg-utils",
+            "name": "simoneddy/crawlers",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simonceddy/mg-utils.git",
-                "reference": "c417df22b820f755f07a65757d77d36ccf9cf368"
+                "reference": "3551e70d7d8b20c5ff0b345c52577df2f755c7ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simonceddy/mg-utils/zipball/c417df22b820f755f07a65757d77d36ccf9cf368",
-                "reference": "c417df22b820f755f07a65757d77d36ccf9cf368",
+                "url": "https://api.github.com/repos/simonceddy/mg-utils/zipball/3551e70d7d8b20c5ff0b345c52577df2f755c7ef",
+                "reference": "3551e70d7d8b20c5ff0b345c52577df2f755c7ef",
                 "shasum": ""
             },
             "require": {
@@ -8962,7 +8962,7 @@
             "type": "project",
             "autoload": {
                 "psr-4": {
-                    "Eddy\\ModularGrid\\": "src"
+                    "Eddy\\Crawlers\\": "src"
                 }
             },
             "license": [
@@ -8974,12 +8974,12 @@
                     "email": "simon@simoneddy.com.au"
                 }
             ],
-            "description": "Utils for crawling and handling data from ModularGrid",
+            "description": "Utils for crawling and handling data from sites like ModularGrid",
             "support": {
                 "source": "https://github.com/simonceddy/mg-utils/tree/master",
                 "issues": "https://github.com/simonceddy/mg-utils/issues"
             },
-            "time": "2023-09-22T07:30:14+00:00"
+            "time": "2023-10-01T04:22:50+00:00"
         },
         {
             "name": "spatie/backtrace",
@@ -9414,7 +9414,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "simoneddy/mg-utils": 20
+        "simoneddy/crawlers": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

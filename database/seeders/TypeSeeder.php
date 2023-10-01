@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\ItemType;
-use Eddy\ModularGrid\Util\URL;
+use Eddy\Crawlers\ModularGrid\Util\URL;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;

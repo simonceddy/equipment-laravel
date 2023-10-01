@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Util\ModularGridToItems;
-use Eddy\ModularGrid\Wrapper;
+use Eddy\Crawlers\ModularGrid\Wrapper;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 

@@ -14,13 +14,16 @@ use App\Http\Controllers\Brands\{
 };
 use App\Http\Controllers\Items\{
     AddTypeToItem,
+    CreateItem,
+    DeleteItem,
     ListItems,
     EditItem,
     RemoveTypeFromItem,
     ShowItem,
+    StoreItem,
     UpdateItem
 };
-use App\Http\Controllers\Types\{DeleteType, ListTypes, ShowType};
+use App\Http\Controllers\Types\{CreateType, DeleteType, ListTypes, ShowType, StoreType};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -64,12 +67,17 @@ Route::put('/brand/{brand}', UpdateBrand::class);
 Route::delete('/brand/{brand}', DeleteBrand::class);
 
 Route::get('/items', ListItems::class);
+Route::get('/item/create', CreateItem::class);
+Route::post('/item/store', StoreItem::class);
 Route::get('/item/{item}', ShowItem::class);
 Route::get('/item/{item}/edit', EditItem::class);
 Route::put('/item/{item}/addType/{type}', AddTypeToItem::class);
 Route::put('/item/{item}/removeType/{type}', RemoveTypeFromItem::class);
 Route::put('/item/{item}', UpdateItem::class);
+Route::delete('/item/{item}', DeleteItem::class);
 
+Route::get('/type/create', CreateType::class);
+Route::post('/type/store', StoreType::class);
 Route::get('/type/{type}', ShowType::class);
 Route::delete('/type/{type}', DeleteType::class);
 Route::get('/types', ListTypes::class);

@@ -4,10 +4,10 @@
 * @param {URL} url
 * @param {?string} replace an optional key to replace in the query. Defaults to replacing 'page'.
 */
-export default function baseUrl(url, replace = 'page') {
-  if (!url || !url.pathname) return false;
+export default function baseUrl(path, url, replace = 'page') {
+  if (!url) return false;
   // console.log(url);
-  let result = `${url.pathname}?`;
+  let result = `${path}?`;
 
   if (url.searchParams?.size > 0) {
     const params = new URLSearchParams(url.searchParams);

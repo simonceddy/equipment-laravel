@@ -32,8 +32,10 @@ class ListItems extends Controller
         // $page = $request->query('page', false);
         /** @var \Illuminate\Database\Eloquent\Builder  */
         $q = $filter
-            ? Item::where('items.name', 'like', '%' . $filter . '%')->with('brand')
-            : Item::with('brand');
+            ? Item::where('items.name', 'like', '%' . $filter . '%')
+                ->orWhere('brands.name', 'like', '%' . $filter . '%')
+            : Item::query();
+        $q->with(['brand', 'types']);
         $q->join('brands', 'items.brand_id', '=', 'brands.id');
         /** @var \Illuminate\Pagination\LengthAwarePaginator */
         $data = $q->orderBy($sort, $desc === '1' ? 'desc' : 'asc')

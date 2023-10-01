@@ -34,7 +34,7 @@ function ListTypes({ data, auth }) {
     <Pagination
       current={data.current_page}
       total={data.last_page}
-      baseURL={baseUrl(router.activeVisit?.url) || '/types?'}
+      baseURL={baseUrl('/types', router.activeVisit?.url) || '/types?'}
     />
   ), [data]);
 
@@ -66,8 +66,8 @@ function ListTypes({ data, auth }) {
               Go
             </FormButton>
           </form>
-          <FormButton onClick={() => router.get('/brand/create')}>
-            Add New Brand
+          <FormButton onClick={() => router.get('/type/create')}>
+            Add New Type
           </FormButton>
         </div>
         <Pgn />

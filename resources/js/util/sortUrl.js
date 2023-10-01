@@ -4,10 +4,10 @@
 * @param {URL} url
 * @param {?string} replace an optional key to replace in the query. Defaults to replacing 'page'.
 */
-export default function sortUrl(url, col = 'name') {
-  if (!url || !url.pathname) return false;
+export default function sortUrl(path, url, col = 'name') {
+  if (!url) return false;
   // console.log(url);
-  let result = `${url.pathname}?`;
+  let result = `${path}?`;
 
   const params = new URLSearchParams(url.searchParams);
   if (params.has('sort') && params.get('sort') === col) {

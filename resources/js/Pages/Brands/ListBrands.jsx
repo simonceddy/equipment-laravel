@@ -17,7 +17,7 @@ const cols = [
   {
     key: 'name',
     label: () => (
-      <Link href={sortUrl(router.activeVisit?.url, 'name')}>
+      <Link href={sortUrl('/brands', router.activeVisit?.url, 'name')}>
         Name
       </Link>
     )
@@ -25,7 +25,7 @@ const cols = [
   {
     key: 'items_count',
     label: () => (
-      <Link href={sortUrl(router.activeVisit?.url, 'items_count')}>
+      <Link href={sortUrl('/brands', router.activeVisit?.url, 'items_count')}>
         Items
       </Link>
     )
@@ -48,7 +48,7 @@ function ListBrands({ data, auth }) {
     <Pagination
       current={data.current_page}
       total={data.last_page}
-      baseURL={baseUrl(router.activeVisit?.url) || '/brands?'}
+      baseURL={baseUrl('/brands', router.activeVisit?.url) || '/brands?'}
     />
   ), [data]);
   return (

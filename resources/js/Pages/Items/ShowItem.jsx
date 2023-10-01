@@ -7,9 +7,10 @@ import FormButton from '@/Components/Forms/FormButton';
 import ItemTypes from '@/Components/Items/ItemTypes';
 import ExternalLink from '@/Components/ExternalLink';
 import PageHeader from '@/Components/PageHeader';
+import ItemSize from '@/Components/Items/ItemSize';
 
 function ShowItem({ auth, item, types }) {
-  // console.log(item);
+  console.log(item.data);
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -17,14 +18,22 @@ function ShowItem({ auth, item, types }) {
     >
       <Head title={`${item.brand?.name} - ${item.name}`} />
       <Content>
-        {item.brand && item.brand.id && (
-          <h2>
-            <Link href={`/brand/${item.brand.id}`}>
-              {item.brand.name || `Brand ${item.brand.id}`}
-            </Link>
-          </h2>
-        )}
-        {item.url && item.url.length > 0 && (<ExternalLink url={item.url} />)}
+        <div className="w-full sm:w-11/12 md:w-5/6 lg:w-4/5 p-2 row justify-between items-start">
+          {item.data?.size && (<ItemSize item={item} />)}
+          <div className="col all-center">
+            {item.brand && item.brand.id && (
+              <h2 className="text-lg font-bold m1">
+                <Link href={`/brand/${item.brand.id}`}>
+                  {item.brand.name || `Brand ${item.brand.id}`}
+                </Link>
+              </h2>
+            )}
+            {item.url && item.url.length > 0 && (<ExternalLink url={item.url} />)}
+          </div>
+        </div>
+        <div className="m-1 p-1">
+          {item.data?.description}
+        </div>
         <ItemTypes
           itemTypes={item.types}
           types={types}

@@ -4,7 +4,7 @@ namespace App\Util;
 use App\Models\Brand;
 use App\Models\Item;
 use App\Models\ItemType;
-use Eddy\ModularGrid\Wrapper;
+use Eddy\Crawlers\ModularGrid\Wrapper;
 
 class ModularGridToItems
 {
@@ -26,6 +26,8 @@ class ModularGridToItems
     private ?string $currentType = null;
 
     private ?string $forceType = null;
+
+    private string $categorySegment = 'e';
 
     private ?ItemType $forceTypeInstance = null;
 
@@ -149,8 +151,15 @@ class ModularGridToItems
         echo 'Saved item ' . $name . PHP_EOL . PHP_EOL;
     }
 
+    private function getModuleMGLink(string $slug)
+    {
+        $url = $this->mg->url::BASE . '/' . $this->categorySegment . '/' . $slug;
+        return $url;
+    }
+
     public function processModule(array $module)
     {
+        // dd($this->forcedType());
         try {
 
             $brand = isset($module['vendor_id']) ? $this->getBrand($module['vendor_id']) : null;
@@ -164,9 +173,13 @@ class ModularGridToItems
                         'depth' => $module['depth'] ?? null,
                         'width' => $module['width'] ?? null,
                         'height' => $module['height'] ?? null,
+                        '1u' => $module['is_1u'] ?? null
                     ],
                     'description' => $module['description'] ?? null,
                     'modulargrid_slug' => $module['slug'] ?? null,
+                    'modulargrid_url' => $module['slug']
+                        ? $this->getModuleMGLink($module['slug'])
+                        : null,
                     'power' => [
                         'currentNeg' => $module['current_min'] ?? null,
                         'currentPos' => $module['current_plus'] ?? null,
@@ -238,6 +251,9 @@ class ModularGridToItems
         $a = $this->mg->url::extractCategory($url);
         if ($a && static::$categoryTypes[$a]) {
             $this->forceType = static::$categoryTypes[$a];
+            $this->categorySegment = $a;
+        } else {
+            $this->categorySegment = 'e';
         }
         echo 'Response received...' . PHP_EOL;
         $body = $res->getBody()->getContents();

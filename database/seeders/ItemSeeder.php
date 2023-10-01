@@ -6,7 +6,7 @@ use App\Models\Brand;
 use App\Models\Item;
 use App\Models\ItemType;
 use App\Util\ModularGridToItems;
-use Eddy\ModularGrid\Wrapper;
+use Eddy\Crawlers\ModularGrid\Wrapper;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;

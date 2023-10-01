@@ -20,7 +20,7 @@ const cols = [
     label: () => (
       <Link
         className="w-full block text-left hover:underline"
-        href={sortUrl(router.activeVisit?.url, 'brand')}
+        href={sortUrl('/items', router.activeVisit?.url, 'brand')}
       >
         Brand
       </Link>
@@ -31,12 +31,16 @@ const cols = [
     label: () => (
       <Link
         className="w-full block text-left hover:underline"
-        href={sortUrl(router.activeVisit?.url, 'name')}
+        href={sortUrl('/items', router.activeVisit?.url, 'name')}
       >
         Name
       </Link>
     )
   },
+  {
+    key: 'type',
+    label: 'Type'
+  }
 ];
 
 const renderers = {
@@ -49,7 +53,15 @@ const renderers = {
     <ListLink href={`/item/${item.id}`}>
       {item.name}
     </ListLink>
-  )
+  ),
+  type: (item) => {
+    if (!item.types || item.types.length === 0) return '';
+    return (
+      <span className="w-[170px] inline-block overflow-ellipsis whitespace-nowrap overflow-hidden">
+        {item.types.map((t) => t.name).join(', ')}
+      </span>
+    );
+  }
 };
 
 /* eslint-disable no-unused-vars */
@@ -61,7 +73,7 @@ function ListItems({
     <Pagination
       current={data.current_page}
       total={data.last_page}
-      baseURL={baseUrl(router.activeVisit?.url) || '/items?'}
+      baseURL={baseUrl('/items', router.activeVisit?.url) || '/items?'}
     />
   ), [data]);
 
@@ -91,8 +103,8 @@ function ListItems({
               Go
             </FormButton>
           </form>
-          <FormButton onClick={() => router.get('/brand/create')}>
-            Add New Brand
+          <FormButton onClick={() => router.get('/item/create')}>
+            Add New Item
           </FormButton>
         </div>
         <Pgn />
