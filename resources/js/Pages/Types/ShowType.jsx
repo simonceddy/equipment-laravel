@@ -6,6 +6,7 @@ import Content from '@/Components/Content';
 import FormButton from '@/Components/Forms/FormButton';
 import Table from '@/Components/Tables/Table';
 import ListLink from '@/Components/ListLink';
+import PageHeader from '@/Components/PageHeader';
 
 const itemsCols = [
   { key: 'brand', label: 'Brand' },
@@ -30,7 +31,7 @@ function ShowType({ auth, type, totalItems }) {
   return (
     <AuthenticatedLayout
       user={auth.user}
-      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">{type.name}</h2>}
+      header={<PageHeader>{type.name}</PageHeader>}
     >
       <Head title={`${type.name}`} />
       <Content>

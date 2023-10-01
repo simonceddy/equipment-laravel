@@ -5,14 +5,15 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
 import FormButton from '@/Components/Forms/FormButton';
 import ItemTypes from '@/Components/Items/ItemTypes';
-import ItemURL from '@/Components/Items/ItemURL';
+import ExternalLink from '@/Components/ExternalLink';
+import PageHeader from '@/Components/PageHeader';
 
 function ShowItem({ auth, item, types }) {
   // console.log(item);
   return (
     <AuthenticatedLayout
       user={auth.user}
-      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">{item.name}</h2>}
+      header={<PageHeader>{item.name}</PageHeader>}
     >
       <Head title={`${item.brand?.name} - ${item.name}`} />
       <Content>
@@ -23,7 +24,7 @@ function ShowItem({ auth, item, types }) {
             </Link>
           </h2>
         )}
-        {item.url && item.url.length > 0 && (<ItemURL url={item.url} />)}
+        {item.url && item.url.length > 0 && (<ExternalLink url={item.url} />)}
         <ItemTypes
           itemTypes={item.types}
           types={types}

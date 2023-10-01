@@ -7,7 +7,7 @@ function Table({ cols = [], rows = [], renderers = {} }) {
             const label = (typeof col.label === 'function')
               ? col.label(col)
               : col.label;
-            console.log(label);
+            // console.log(label);
             return (
               <th className="border border-slate-400 text-lg text-left" key={`table-header-${id}`}>
                 {label}

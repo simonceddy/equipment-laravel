@@ -1,5 +1,7 @@
 /* eslint-disable import/no-unresolved */
-import { Head, router, useRemember } from '@inertiajs/react';
+import {
+  Head, Link, router, useRemember
+} from '@inertiajs/react';
 import { useCallback } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
@@ -9,10 +11,32 @@ import ListLink from '@/Components/ListLink';
 import TextInput from '@/Components/Forms/TextInput';
 import FormButton from '@/Components/Forms/FormButton';
 import baseUrl from '@/util/baseUrl';
+import sortUrl from '@/util/sortUrl';
+import PageHeader from '@/Components/PageHeader';
 
 const cols = [
-  { key: 'brand', label: () => 'Brand' },
-  { key: 'name', label: () => 'Name' },
+  {
+    key: 'brand',
+    label: () => (
+      <Link
+        className="w-full block text-left hover:underline"
+        href={sortUrl(router.activeVisit?.url, 'brand')}
+      >
+        Brand
+      </Link>
+    )
+  },
+  {
+    key: 'name',
+    label: () => (
+      <Link
+        className="w-full block text-left hover:underline"
+        href={sortUrl(router.activeVisit?.url, 'name')}
+      >
+        Name
+      </Link>
+    )
+  },
 ];
 
 const renderers = {
@@ -32,7 +56,7 @@ const renderers = {
 function ListItems({
   data, auth
 }) {
-  const [filter, setFilter] = useRemember('');
+  const [filter, setFilter] = useRemember(router.activeVisit?.url?.searchParams?.get('filter') || '');
   const Pgn = useCallback(() => (
     <Pagination
       current={data.current_page}
@@ -44,7 +68,7 @@ function ListItems({
   return (
     <AuthenticatedLayout
       user={auth.user}
-      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">items</h2>}
+      header={<PageHeader>Items</PageHeader>}
     >
       <Head title="Items" />
       <Content>

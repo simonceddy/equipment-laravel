@@ -1,6 +1,6 @@
 import { FaLink } from 'react-icons/fa';
 
-function ItemURL({ url }) {
+function ExternalLink({ url }) {
   return (
     <a
       className="italic row all-center m-2 hover:underline"
@@ -14,4 +14,4 @@ function ItemURL({ url }) {
   );
 }
 
-export default ItemURL;
+export default ExternalLink;

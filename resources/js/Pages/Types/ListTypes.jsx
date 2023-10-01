@@ -10,6 +10,7 @@ import Pagination from '@/Components/Pagination';
 import TextInput from '@/Components/Forms/TextInput';
 import FormButton from '@/Components/Forms/FormButton';
 import baseUrl from '@/util/baseUrl';
+import PageHeader from '@/Components/PageHeader';
 
 const typesCols = [
   { label: 'Name', key: 'name' },
@@ -40,7 +41,7 @@ function ListTypes({ data, auth }) {
   return (
     <AuthenticatedLayout
       user={auth.user}
-      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Types</h2>}
+      header={<PageHeader>Types</PageHeader>}
     >
       <Head title="Types" />
       <Content>

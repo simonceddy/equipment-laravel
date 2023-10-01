@@ -7,27 +7,20 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
 import ListLink from '@/Components/ListLink';
 import FormButton from '@/Components/Forms/FormButton';
+import PageHeader from '@/Components/PageHeader';
+import ExternalLink from '@/Components/ExternalLink';
 
 function ShowBrand({ auth, brand }) {
   // console.log(brand);
   return (
     <AuthenticatedLayout
       user={auth.user}
-      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">{brand.name}</h2>}
+      header={<PageHeader>{brand.name}</PageHeader>}
     >
       <Head title={brand.name} />
       <Content>
 
-        {brand.url && brand.url.length > 0 && (
-        <a
-          className="italic hover:underline"
-          rel="noreferrer"
-          target="_blank"
-          href={brand.url}
-        >
-          {brand.url}
-        </a>
-        )}
+        {brand.url && brand.url.length > 0 && (<ExternalLink url={brand.url} />)}
         <div className="m-2 border-2 p-2 border-slate-500 col justify-start items-start whitespace-pre-wrap overflow-y-scroll h-[500px] w-[500px]">
           <span className="row all-center w-full">
             There {brand.items?.length === 1 ? 'is' : 'are'}

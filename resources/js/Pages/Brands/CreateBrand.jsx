@@ -5,6 +5,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
 import TextInput from '@/Components/Forms/TextInput';
 import FormButton from '@/Components/Forms/FormButton';
+import PageHeader from '@/Components/PageHeader';
 
 function CreateBrand({ auth }) {
   const [formState, setFormState] = useState({
@@ -20,7 +21,7 @@ function CreateBrand({ auth }) {
   return (
     <AuthenticatedLayout
       user={auth.user}
-      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Add New Brand</h2>}
+      header={<PageHeader>Add New Brand</PageHeader>}
     >
       <Head title="Add New Brand" />
       <Content>

@@ -5,6 +5,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
 import TextInput from '@/Components/Forms/TextInput';
 import FormButton from '@/Components/Forms/FormButton';
+import PageHeader from '@/Components/PageHeader';
 
 function EditBrand({ auth, brand }) {
   const [formState, setFormState] = useState(brand || {
@@ -21,25 +22,23 @@ function EditBrand({ auth, brand }) {
     <AuthenticatedLayout
       user={auth.user}
       header={(
-        <h2
-          className="font-semibold text-xl text-gray-800 leading-tight"
-        >
+        <PageHeader>
           Editing {brand.name}
-        </h2>
+        </PageHeader>
 )}
     >
       <Head title={`Editing ${brand.name}`} />
       <Content>
         <form onSubmit={onSubmit} className="col all-center">
           <TextInput
-            value={formState.name}
+            value={formState.name || ''}
             onChange={(e) => {
               setFormState({ ...formState, name: e.target.value });
             }}
             label="Brand Name:"
           />
           <TextInput
-            value={formState.url}
+            value={formState.url || ''}
             onChange={(e) => {
               setFormState({ ...formState, url: e.target.value });
             }}

@@ -9,6 +9,7 @@ import TypeListItem from '@/Components/Types/TypeListItem';
 import TextInput from '@/Components/Forms/TextInput';
 import FormButton from '@/Components/Forms/FormButton';
 import Select from '@/Components/Forms/Select';
+import PageHeader from '@/Components/PageHeader';
 
 function EditItem({
   auth, item, brands, types
@@ -28,7 +29,7 @@ function EditItem({
   return (
     <AuthenticatedLayout
       user={auth.user}
-      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Editing {item.name}</h2>}
+      header={<PageHeader>Editing {item.name}</PageHeader>}
     >
       <Head title={`Editing ${item.brand?.name} - ${item.name}`} />
       <Content>

@@ -6,7 +6,7 @@
 */
 export default function sortUrl(url, col = 'name') {
   if (!url || !url.pathname) return false;
-  console.log(url);
+  // console.log(url);
   let result = `${url.pathname}?`;
 
   const params = new URLSearchParams(url.searchParams);

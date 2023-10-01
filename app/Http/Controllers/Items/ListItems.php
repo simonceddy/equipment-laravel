@@ -19,14 +19,28 @@ class ListItems extends Controller
      */
     public function __invoke(Request $request)
     {
+        // TODO validate
         $filter = $request->query('filter', false);
+        $sort = $request->query('sort', 'name');
+        $desc = $request->query('desc', 0);
+
+        if ($sort === 'brand') {
+            $sort = 'brands.name';
+        } else {
+            $sort = 'items.' . $sort;
+        }
         // $page = $request->query('page', false);
         /** @var \Illuminate\Database\Eloquent\Builder  */
-        $q = $filter ? Item::where('name', 'like', '%' . $filter . '%')->with('brand')
+        $q = $filter
+            ? Item::where('items.name', 'like', '%' . $filter . '%')->with('brand')
             : Item::with('brand');
+        $q->join('brands', 'items.brand_id', '=', 'brands.id');
         /** @var \Illuminate\Pagination\LengthAwarePaginator */
-        $data = $q->orderBy('name')->paginate(32);
+        $data = $q->orderBy($sort, $desc === '1' ? 'desc' : 'asc')
+            ->select('items.*')
+            ->paginate(32);
         // $lastPage = $data->lastPage();
+        // dd($data);
         return Inertia::render('Items/ListItems', [
             'data' => $data
         ]);

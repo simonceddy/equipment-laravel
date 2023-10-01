@@ -11,6 +11,7 @@ import FormButton from '@/Components/Forms/FormButton';
 import TextInput from '@/Components/Forms/TextInput';
 import baseUrl from '@/util/baseUrl';
 import sortUrl from '@/util/sortUrl';
+import PageHeader from '@/Components/PageHeader';
 
 const cols = [
   {
@@ -53,7 +54,7 @@ function ListBrands({ data, auth }) {
   return (
     <AuthenticatedLayout
       user={auth.user}
-      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Brands</h2>}
+      header={<PageHeader>Brands</PageHeader>}
     >
       <Head title="Brands" />
       <Content>

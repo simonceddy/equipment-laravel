@@ -6,7 +6,7 @@
 */
 export default function baseUrl(url, replace = 'page') {
   if (!url || !url.pathname) return false;
-  console.log(url);
+  // console.log(url);
   let result = `${url.pathname}?`;
 
   if (url.searchParams?.size > 0) {

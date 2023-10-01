@@ -18,7 +18,9 @@ class ShowBrand extends Controller
      */
     public function __invoke(Brand $brand)
     {
-        $brand->load(['items']);
+        $brand->load(['items' => function ($q) {
+            $q->orderBy('name');
+        }]);
         return Inertia::render('Brands/ShowBrand', [
             'brand' => $brand
         ]);

@@ -23,8 +23,8 @@ class EditItem extends Controller
      */
     public function __invoke(Item $item)
     {
-        $brands = Brand::all(['name', 'id']);
-        $types = ItemType::all(['name', 'id']);
+        $brands = Brand::select(['name', 'id'])->orderBy('name')->get();
+        $types = ItemType::select(['name', 'id'])->orderBy('name')->get();
         $item->load(['brand', 'types']);
         return Inertia::render('Items/EditItem', [
             'brands' => $brands,
