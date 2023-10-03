@@ -8939,12 +8939,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/simonceddy/mg-utils.git",
-                "reference": "3551e70d7d8b20c5ff0b345c52577df2f755c7ef"
+                "reference": "7fb26ae913d9922380d078dfe8a92aaf4c20ff9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simonceddy/mg-utils/zipball/3551e70d7d8b20c5ff0b345c52577df2f755c7ef",
-                "reference": "3551e70d7d8b20c5ff0b345c52577df2f755c7ef",
+                "url": "https://api.github.com/repos/simonceddy/mg-utils/zipball/7fb26ae913d9922380d078dfe8a92aaf4c20ff9c",
+                "reference": "7fb26ae913d9922380d078dfe8a92aaf4c20ff9c",
                 "shasum": ""
             },
             "require": {
@@ -8979,7 +8979,7 @@
                 "source": "https://github.com/simonceddy/mg-utils/tree/master",
                 "issues": "https://github.com/simonceddy/mg-utils/issues"
             },
-            "time": "2023-10-01T04:22:50+00:00"
+            "time": "2023-10-03T07:10:55+00:00"
         },
         {
             "name": "spatie/backtrace",

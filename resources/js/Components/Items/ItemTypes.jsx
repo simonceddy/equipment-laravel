@@ -33,7 +33,7 @@ function ItemTypes({
           e.preventDefault();
           if (selectedType && onAdd) onAdd(selectedType);
         }}
-        className="row items-center justify-around m-2"
+        className="row items-center justify-center m-2"
       >
         <Select
           onChange={(e) => {
