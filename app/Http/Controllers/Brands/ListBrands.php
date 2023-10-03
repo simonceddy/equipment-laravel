@@ -29,7 +29,7 @@ class ListBrands extends Controller
             ? Brand::where('name', 'like', '%' . $filter . '%')->withCount('items')
             : Brand::withCount('items');
         /** @var \Illuminate\Pagination\LengthAwarePaginator */
-        $data = $q->orderBy($sort, $desc === '1' ? 'desc' : 'asc')->paginate(32);
+        $data = $q->orderBy($sort, $desc === '1' ? 'desc' : 'asc')->paginate(64);
 
         return Inertia::render('Brands/ListBrands', [
             'data' => $data

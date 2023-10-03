@@ -24,7 +24,7 @@ class ListTypes extends Controller
         $q = $filter ? ItemType::where('name', 'like', '%' . $filter . '%')->withCount('items')
             : ItemType::withCount('items');
         /** @var \Illuminate\Pagination\LengthAwarePaginator */
-        $data = $q->orderBy('name')->paginate(32);
+        $data = $q->orderBy('name')->paginate(64);
         // $lastPage = $data->lastPage();
         return Inertia::render('Types/ListTypes', [
             'data' => $data

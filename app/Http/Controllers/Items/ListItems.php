@@ -40,7 +40,7 @@ class ListItems extends Controller
         /** @var \Illuminate\Pagination\LengthAwarePaginator */
         $data = $q->orderBy($sort, $desc === '1' ? 'desc' : 'asc')
             ->select('items.*')
-            ->paginate(32);
+            ->paginate(64);
         // $lastPage = $data->lastPage();
         // dd($data);
         return Inertia::render('Items/ListItems', [
