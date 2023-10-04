@@ -35,6 +35,10 @@ function ShowType({ auth, type, totalItems }) {
     >
       <Head title={`${type.name}`} />
       <Content>
+
+        <FormButton onClick={() => router.get(`/type/${type.id}/edit`)}>
+          Edit
+        </FormButton>
         {totalItems && (
         <span className="mt-2 mx-2 bg-slate-500/30 p-2 text-lg font-bold">
           {totalItems} total items with type {type.name}

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable import/no-unresolved */
 import { Head, Link, router } from '@inertiajs/react';
@@ -10,6 +11,9 @@ import TextInput from '@/Components/Forms/TextInput';
 import FormButton from '@/Components/Forms/FormButton';
 import Select from '@/Components/Forms/Select';
 import PageHeader from '@/Components/PageHeader';
+import itemDataFields from '@/util/itemDataFields';
+
+const keys = Object.keys(itemDataFields);
 
 function EditItem({
   auth, item, brands, types
@@ -18,12 +22,19 @@ function EditItem({
     name: item.name || '',
     url: item.url || '',
   });
+
+  const [data, setData] = useState(item.data ? {
+    ...item.data,
+  } : {
+    ...itemDataFields
+  });
+
   const [brandId, setBrandId] = useState(item?.brand_id || 0);
-  console.log(brands, types);
+  console.log(item);
 
   const formHandler = (e) => {
     e.preventDefault();
-    router.put(`/item/${item.id}`, { ...state, brandId });
+    router.put(`/item/${item.id}`, { ...state, brandId, data });
   };
 
   return (
@@ -70,6 +81,49 @@ function EditItem({
             label="Item URL:"
             value={state.url || ''}
           />
+
+          {/* Data fields */}
+          <div>
+            {keys.map((key) => {
+              //
+              const val = itemDataFields[key];
+              if (val !== null && typeof val === 'object') {
+                const subKeys = Object.keys(val);
+
+                return (
+                  <div key={`data-subgroup-${key}`} className="px-2 py-1 bg-gray-300/30 rounded m-1">
+                    <span className="capitalize font-bold mb-1 border-b border-b-black dark:border-b-white">{key}</span>
+                    {subKeys.map((subKey) => (
+                      <TextInput
+                        key={`data-input-${key}-${subKey}`}
+                        label={subKey}
+                        value={(data[key] && data[key][subKey]) ? data[key][subKey] : ''}
+                        onChange={(e) => {
+                          setData({
+                            ...data,
+                            [key]: {
+                              ...data[key],
+                              [subKey]: e.target.value
+                            }
+                          });
+                        }}
+                      />
+                    ))}
+                  </div>
+                );
+              }
+              return (
+                <TextInput
+                  key={`data-input-${key}`}
+                  label={key}
+                  value={(data && data[key]) ? data[key] : ''}
+                  onChange={(e) => {
+                    setData({ ...data, [key]: e.target.value });
+                  }}
+                />
+              );
+            })}
+          </div>
           <div>
             {item.types && (
               <>

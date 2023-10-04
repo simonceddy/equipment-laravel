@@ -8,9 +8,10 @@ import ItemTypes from '@/Components/Items/ItemTypes';
 import ExternalLink from '@/Components/ExternalLink';
 import PageHeader from '@/Components/PageHeader';
 import ItemSize from '@/Components/Items/ItemSize';
+import MGLink from '@/Components/MGLink';
 
 function ShowItem({ auth, item, types }) {
-  console.log(item.data);
+  // console.log(item.data);
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -29,6 +30,9 @@ function ShowItem({ auth, item, types }) {
               </h2>
             )}
             {item.url && item.url.length > 0 && (<ExternalLink url={item.url} />)}
+            {(item.data && (item.data.modulargrid_slug || item.data.modulargrid_url)) && (
+              <MGLink url={item.data.modulargrid_url} slug={item.data.modulargrid_slug} />
+            )}
           </div>
         </div>
         <div className="m-1 p-1">
@@ -44,31 +48,33 @@ function ShowItem({ auth, item, types }) {
             router.put(`/item/${item.id}/removeType/${id}`);
           }}
         />
-        <FormButton onClick={() => router.get(`/item/${item.id}/edit`)}>
-          Edit
-        </FormButton>
-        <FormButton
-          onClick={() => {
-            confirmAlert({
-              overlayClassName: 'absolute bg-black text-white p-8 border-2 border-slate-400 rounded-lg bottom-4 left-[45%]',
-              buttons: [
-                {
-                  className: 'm-2 p-2 font-bold border-2 rounded-lg bg-green-900 text-white hover:underline active:bg-green-600',
-                  label: 'Yes',
-                  onClick: () => {
-                    router.delete(`/item/${item.id}`);
-                  }
-                },
-                {
-                  className: 'm-2 p-2 font-bold border-2 rounded-lg bg-red-900 text-white hover:underline active:bg-red-600',
-                  label: 'No',
-                },
-              ]
-            });
-          }}
-        >
-          Delete
-        </FormButton>
+        <div className="row justify-around items-center w-full">
+          <FormButton onClick={() => router.get(`/item/${item.id}/edit`)}>
+            Edit
+          </FormButton>
+          <FormButton
+            onClick={() => {
+              confirmAlert({
+                overlayClassName: 'absolute bg-black text-white p-8 border-2 border-slate-400 rounded-lg bottom-4 left-[45%]',
+                buttons: [
+                  {
+                    className: 'm-2 p-2 font-bold border-2 rounded-lg bg-green-900 text-white hover:underline active:bg-green-600',
+                    label: 'Yes',
+                    onClick: () => {
+                      router.delete(`/item/${item.id}`);
+                    }
+                  },
+                  {
+                    className: 'm-2 p-2 font-bold border-2 rounded-lg bg-red-900 text-white hover:underline active:bg-red-600',
+                    label: 'No',
+                  },
+                ]
+              });
+            }}
+          >
+            Delete
+          </FormButton>
+        </div>
       </Content>
     </AuthenticatedLayout>
   );

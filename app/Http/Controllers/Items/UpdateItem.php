@@ -17,6 +17,7 @@ class UpdateItem extends Controller
         $data = $request->request->all();
         $item->setAttribute('name', $data['name']);
         $item->setAttribute('url', $data['url']);
+        $item->setAttribute('data', $data['data']);
         if (isset($data['brandId']) && $data['brandId'] !== $item->getAttribute('brand_id')) {
             $newBrand = Brand::query()->where('id', $data['brandId'])->first();
             if ($newBrand) {

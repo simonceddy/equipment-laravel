@@ -23,7 +23,9 @@ use App\Http\Controllers\Items\{
     StoreItem,
     UpdateItem
 };
-use App\Http\Controllers\Types\{CreateType, DeleteType, ListTypes, ShowType, StoreType};
+use App\Http\Controllers\Types\{
+    CreateType, DeleteType, EditType, ListTypes, ShowType, StoreType, UpdateType
+};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -78,6 +80,8 @@ Route::delete('/item/{item}', DeleteItem::class);
 
 Route::get('/type/create', CreateType::class);
 Route::post('/type/store', StoreType::class);
+Route::get('/type/{type}/edit', EditType::class);
+Route::put('/type/{type}', UpdateType::class);
 Route::get('/type/{type}', ShowType::class);
 Route::delete('/type/{type}', DeleteType::class);
 Route::get('/types', ListTypes::class);

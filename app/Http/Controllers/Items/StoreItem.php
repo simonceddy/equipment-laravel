@@ -19,10 +19,11 @@ class StoreItem extends Controller
         $brand = isset($data['brandId'])
             ? Brand::where('id', $data['brandId'])->first()
             : null;
-        // dd($brand, $data['brandId']);
+        // dd($data);
         $item = new Item([
             'name' => $data['name'],
             'url' => $data['url'] ?? null,
+            'data' => $data['data'] ?? null,
         ]);
 
         $item->save();

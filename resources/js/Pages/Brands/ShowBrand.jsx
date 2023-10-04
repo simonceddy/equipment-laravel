@@ -37,31 +37,36 @@ function ShowBrand({ auth, brand }) {
             ))}
           </ItemList>
         </div>
-        <FormButton onClick={() => router.get(`/brand/${brand.id}/edit`)}>
-          Edit
-        </FormButton>
-        <FormButton
-          onClick={() => {
-            confirmAlert({
-              overlayClassName: 'absolute bg-black text-white p-8 border-2 border-slate-400 rounded-lg bottom-4 left-[45%]',
-              buttons: [
-                {
-                  className: 'm-2 p-2 font-bold border-2 rounded-lg bg-green-900 text-white hover:underline active:bg-green-600',
-                  label: 'Yes',
-                  onClick: () => {
-                    router.delete(`/brand/${brand.id}`);
-                  }
-                },
-                {
-                  className: 'm-2 p-2 font-bold border-2 rounded-lg bg-red-900 text-white hover:underline active:bg-red-600',
-                  label: 'No',
-                },
-              ]
-            });
-          }}
-        >
-          Delete
-        </FormButton>
+        <div className="row w-full justify-around items-center">
+          <FormButton onClick={() => router.get(`/item/create?brandId=${brand.id}`)}>
+            Add Brand Item
+          </FormButton>
+          <FormButton onClick={() => router.get(`/brand/${brand.id}/edit`)}>
+            Edit
+          </FormButton>
+          <FormButton
+            onClick={() => {
+              confirmAlert({
+                overlayClassName: 'absolute bg-black text-white p-8 border-2 border-slate-400 rounded-lg bottom-4 left-[45%]',
+                buttons: [
+                  {
+                    className: 'm-2 p-2 font-bold border-2 rounded-lg bg-green-900 text-white hover:underline active:bg-green-600',
+                    label: 'Yes',
+                    onClick: () => {
+                      router.delete(`/brand/${brand.id}`);
+                    }
+                  },
+                  {
+                    className: 'm-2 p-2 font-bold border-2 rounded-lg bg-red-900 text-white hover:underline active:bg-red-600',
+                    label: 'No',
+                  },
+                ]
+              });
+            }}
+          >
+            Delete
+          </FormButton>
+        </div>
       </Content>
     </AuthenticatedLayout>
   );

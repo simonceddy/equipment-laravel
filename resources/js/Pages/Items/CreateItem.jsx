@@ -10,22 +10,31 @@ import FormButton from '@/Components/Forms/FormButton';
 import PageHeader from '@/Components/PageHeader';
 import Select from '@/Components/Forms/Select';
 import ItemTypes from '@/Components/Items/ItemTypes';
+import itemDataFields from '@/util/itemDataFields';
 
-function CreateItem({ auth, brands, types }) {
+const keys = Object.keys(itemDataFields);
+
+function CreateItem({
+  auth, brands, types, brandId
+}) {
   const [formState, setFormState] = useState({
     name: '',
     url: '',
-    brandId: 0,
+    brandId: brandId || 0,
   });
 
   const [itemTypes, setItemTypes] = useState([]);
 
+  const [data, setData] = useState({
+    ...itemDataFields
+  });
+
   const onSubmit = (e) => {
     e.preventDefault();
-    router.post('/item/store', { ...formState, itemTypes });
+    router.post('/item/store', { ...formState, itemTypes, data });
   };
 
-  console.log(brands, types);
+  // console.log(brands, types);
 
   return (
     <AuthenticatedLayout
@@ -62,6 +71,48 @@ function CreateItem({ auth, brands, types }) {
             }}
             label="Item URL:"
           />
+          {/* Data fields */}
+          <div>
+            {keys.map((key) => {
+              //
+              const val = itemDataFields[key];
+              if (val !== null && typeof val === 'object') {
+                const subKeys = Object.keys(val);
+
+                return (
+                  <div key={`data-subfield-group-${key}`} className="px-2 py-1 bg-gray-300/30 rounded m-1">
+                    <span className="capitalize font-bold mb-1 border-b border-b-black dark:border-b-white">{key}</span>
+                    {subKeys.map((subKey) => (
+                      <TextInput
+                        key={`data-input-${key}-${subKey}`}
+                        label={subKey}
+                        value={(data[key] && data[key][subKey]) ? data[key][subKey] : ''}
+                        onChange={(e) => {
+                          setData({
+                            ...data,
+                            [key]: {
+                              ...data[key],
+                              [subKey]: e.target.value
+                            }
+                          });
+                        }}
+                      />
+                    ))}
+                  </div>
+                );
+              }
+              return (
+                <TextInput
+                  key={`data-input-${key}`}
+                  label={key}
+                  value={(data && data[key]) ? data[key] : ''}
+                  onChange={(e) => {
+                    setData({ ...data, [key]: e.target.value });
+                  }}
+                />
+              );
+            })}
+          </div>
 
         </form>
         <ItemTypes
@@ -76,7 +127,17 @@ function CreateItem({ auth, brands, types }) {
             setItemTypes(itemTypes.filter((t) => t.id !== Number(n)));
           }}
         />
-        <FormButton onClick={onSubmit}>Save</FormButton>
+        <div className="w-full row justify-around items-center">
+          <FormButton onClick={onSubmit}>Save</FormButton>
+          <FormButton
+            onClick={() => {
+              if (brandId) {
+                router.get(`/brand/${brandId}`);
+              } else router.get('/items');
+            }}
+          >Cancel
+          </FormButton>
+        </div>
       </Content>
     </AuthenticatedLayout>
   );
