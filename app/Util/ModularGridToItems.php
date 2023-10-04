@@ -153,7 +153,7 @@ class ModularGridToItems
 
     private function getModuleMGLink(string $slug)
     {
-        $url = $this->mg->url::BASE . '/' . $this->categorySegment . '/' . $slug;
+        $url = $this->categorySegment . '/' . $slug;
         return $url;
     }
 
