@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\MG;
 
 use App\Util\ModularGridToItems;
 use Eddy\Crawlers\ModularGrid\Wrapper;
@@ -14,7 +14,7 @@ class SeedModules extends Command
      *
      * @var string
      */
-    protected $signature = 'seed:modules {url}';
+    protected $signature = 'mog:rack {url}';
 
     /**
      * The console command description.

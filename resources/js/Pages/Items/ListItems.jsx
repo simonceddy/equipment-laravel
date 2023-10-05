@@ -13,6 +13,8 @@ import FormButton from '@/Components/Forms/FormButton';
 import baseUrl from '@/util/baseUrl';
 import sortUrl from '@/util/sortUrl';
 import PageHeader from '@/Components/PageHeader';
+import formateDatetime from '@/util/formateDatetime';
+import addUrlFilter from '@/util/addUrlFilter';
 
 const cols = [
   {
@@ -40,6 +42,28 @@ const cols = [
   {
     key: 'type',
     label: 'Type'
+  },
+  {
+    key: 'created_at',
+    label: () => (
+      <Link
+        className="w-full block text-left hover:underline"
+        href={sortUrl('/items', router.activeVisit?.url, 'created_at')}
+      >
+        Created
+      </Link>
+    )
+  },
+  {
+    key: 'updated_at',
+    label: () => (
+      <Link
+        className="w-full block text-left hover:underline"
+        href={sortUrl('/items', router.activeVisit?.url, 'updated_at')}
+      >
+        Updated
+      </Link>
+    )
   }
 ];
 
@@ -61,7 +85,23 @@ const renderers = {
         {item.types.map((t) => t.name).join(', ')}
       </span>
     );
-  }
+  },
+  created_at: (item) => {
+    if (!item.created_at) return null;
+    return (
+      <span className="text-sm">
+        {formateDatetime(item.created_at)}
+      </span>
+    );
+  },
+  updated_at: (item) => {
+    if (!item.updated_at) return null;
+    return (
+      <span className="text-sm">
+        {formateDatetime(item.updated_at)}
+      </span>
+    );
+  },
 };
 
 /* eslint-disable no-unused-vars */
@@ -88,8 +128,9 @@ function ListItems({
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              if (filter.trim().length > 0) {
-                router.get(`/items?filter=${filter}`);
+              const f = filter.trim();
+              if (f.length > 0) {
+                router.get(addUrlFilter('/items', router.activeVisit.url, f));
               }
             }}
             className="row all-center m-2 p-2"

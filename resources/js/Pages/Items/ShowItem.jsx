@@ -9,6 +9,7 @@ import ExternalLink from '@/Components/ExternalLink';
 import PageHeader from '@/Components/PageHeader';
 import ItemSize from '@/Components/Items/ItemSize';
 import MGLink from '@/Components/MGLink';
+import PELink from '@/Components/PELink';
 
 function ShowItem({ auth, item, types }) {
   // console.log(item.data);
@@ -32,6 +33,9 @@ function ShowItem({ auth, item, types }) {
             {item.url && item.url.length > 0 && (<ExternalLink url={item.url} />)}
             {(item.data && (item.data.modulargrid_slug || item.data.modulargrid_url)) && (
               <MGLink url={item.data.modulargrid_url} slug={item.data.modulargrid_slug} />
+            )}
+            {(item.data && (item.data.pedalempire_url)) && (
+              <PELink url={item.data.pedalempire_url} />
             )}
           </div>
         </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\MG;
 
 use App\Models\Brand;
 use App\Models\Item;
@@ -20,7 +20,7 @@ class SeedFromJson extends Command
      *
      * @var string
      */
-    protected $signature = 'seed:from {jsonfile}';
+    protected $signature = 'mog:from {jsonfile}';
 
     /**
      * The console command description.

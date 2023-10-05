@@ -12,6 +12,9 @@ import TextInput from '@/Components/Forms/TextInput';
 import baseUrl from '@/util/baseUrl';
 import sortUrl from '@/util/sortUrl';
 import PageHeader from '@/Components/PageHeader';
+import formateDatetime from '@/util/formateDatetime';
+import clearUrlFilter from '@/util/clearUrlFilter';
+import addUrlFilter from '@/util/addUrlFilter';
 
 const cols = [
   {
@@ -29,6 +32,28 @@ const cols = [
         Items
       </Link>
     )
+  },
+  {
+    key: 'created_at',
+    label: () => (
+      <Link
+        className="w-full block text-left hover:underline"
+        href={sortUrl('/brands', router.activeVisit?.url, 'created_at')}
+      >
+        Created
+      </Link>
+    )
+  },
+  {
+    key: 'updated_at',
+    label: () => (
+      <Link
+        className="w-full block text-left hover:underline"
+        href={sortUrl('/brands', router.activeVisit?.url, 'updated_at')}
+      >
+        Updated
+      </Link>
+    )
   }
 ];
 
@@ -37,7 +62,23 @@ const renderers = {
     <Link preserveState className="w-full block text-left hover:underline" href={`/brand/${brand.id}`}>
       {brand.name}
     </Link>
-  )
+  ),
+  created_at: (brand) => {
+    if (!brand.created_at) return null;
+    return (
+      <span className="text-sm">
+        {formateDatetime(brand.created_at)}
+      </span>
+    );
+  },
+  updated_at: (brand) => {
+    if (!brand.updated_at) return null;
+    return (
+      <span className="text-sm">
+        {formateDatetime(brand.updated_at)}
+      </span>
+    );
+  },
 };
 
 /* eslint-disable no-unused-vars */
@@ -62,8 +103,9 @@ function ListBrands({ data, auth }) {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              if (filter.trim().length > 0) {
-                router.get(`/brands?filter=${filter}`);
+              const f = filter.trim();
+              if (f.length > 0) {
+                router.get(addUrlFilter('/brands', router.activeVisit.url, f));
               }
             }}
             className="row all-center m-2 p-2"
@@ -75,6 +117,13 @@ function ListBrands({ data, auth }) {
             />
             <FormButton submits>
               Go
+            </FormButton>
+            <FormButton
+              onClick={() => {
+                router.get(clearUrlFilter('/brands', router.activeVisit.url));
+              }}
+            >
+              Clear
             </FormButton>
           </form>
           <FormButton onClick={() => router.get('/brand/create')}>

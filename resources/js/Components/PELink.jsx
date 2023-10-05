@@ -1,8 +1,8 @@
 import ExternalLink from './ExternalLink';
 
-const baseURL = 'https://www.modulargrid.net/';
+const baseURL = 'https://www.pedalempire.com.au';
 
-function MGLink({ slug, url, }) {
+function PELink({ slug, url, }) {
   if (!url && !slug) return null;
   const u = `${baseURL}${url || `e/${slug}`}`;
 
@@ -11,4 +11,4 @@ function MGLink({ slug, url, }) {
   );
 }
 
-export default MGLink;
+export default PELink;
