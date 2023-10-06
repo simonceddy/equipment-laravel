@@ -12,6 +12,7 @@ import FormButton from '@/Components/Forms/FormButton';
 import Select from '@/Components/Forms/Select';
 import PageHeader from '@/Components/PageHeader';
 import itemDataFields from '@/util/itemDataFields';
+import Textarea from '@/Components/Forms/Textarea';
 
 const keys = Object.keys(itemDataFields);
 
@@ -51,13 +52,13 @@ function EditItem({
             </Link>
           </h2>
         )} */}
-        <form className="col all-center" onSubmit={formHandler}>
-          <label htmlFor="brand-selector" className="row w-full justify-between items-center">
-            <span>
+        <form className="col all-center w-11/12 mx-auto" onSubmit={formHandler}>
+          <label htmlFor="brand-selector" className="row w-full justify-center items-center">
+            <span className="mr-2 text-lg">
               Brand:
             </span>
             <Select
-              className="w-96"
+              className="sm:w-96 w-1/2 md:w-[30rem]"
               options={brands}
               value={brandId}
               onChange={(e) => {
@@ -66,7 +67,7 @@ function EditItem({
             />
           </label>
           <TextInput
-            className="w-96"
+            className="sm:w-96 w-1/2 md:w-[30rem]"
             label="Item Name:"
             value={state.name || ''}
             onChange={(e) => {
@@ -77,15 +78,29 @@ function EditItem({
             onChange={(e) => {
               setState({ ...state, url: e.target.value });
             }}
-            className="w-96"
+            className="sm:w-96 w-1/2 md:w-[30rem]"
             label="Item URL:"
             value={state.url || ''}
           />
 
           {/* Data fields */}
-          <div>
+          <div className="w-11/12 mx-auto">
             {keys.map((key) => {
               //
+              if (key === 'description') {
+                return (
+                  <Textarea
+                    outerClassName="my-3 rounded bg-blue-200/30 p-2"
+                    asCol
+                    label="Description"
+                    key="data-field-description"
+                    onChange={(e) => {
+                      setData({ ...data, description: e.target.value });
+                    }}
+                    value={data.description}
+                  />
+                );
+              }
               const val = itemDataFields[key];
               if (val !== null && typeof val === 'object') {
                 const subKeys = Object.keys(val);
@@ -95,6 +110,7 @@ function EditItem({
                     <span className="capitalize font-bold mb-1 border-b border-b-black dark:border-b-white">{key}</span>
                     {subKeys.map((subKey) => (
                       <TextInput
+                        className="sm:w-96 w-1/2 md:w-[30rem]"
                         key={`data-input-${key}-${subKey}`}
                         label={subKey}
                         value={(data[key] && data[key][subKey]) ? data[key][subKey] : ''}
@@ -114,6 +130,7 @@ function EditItem({
               }
               return (
                 <TextInput
+                  className="sm:w-96 w-1/2 md:w-[30rem]"
                   key={`data-input-${key}`}
                   label={key}
                   value={(data && data[key]) ? data[key] : ''}

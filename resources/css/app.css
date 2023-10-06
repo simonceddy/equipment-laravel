@@ -15,4 +15,10 @@
         .all-center {
             @apply justify-center items-center;
         }
+
+    }
+
+.item-description > p {
+    margin-top: 12px;
+    margin-bottom: 12px;
 }

@@ -1,4 +1,5 @@
 /* eslint-disable import/no-unresolved */
+import parse from 'html-react-parser';
 import { Head, Link, router } from '@inertiajs/react';
 import { confirmAlert } from 'react-confirm-alert';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
@@ -39,9 +40,11 @@ function ShowItem({ auth, item, types }) {
             )}
           </div>
         </div>
-        <div className="m-1 p-1">
-          {item.data?.description}
-        </div>
+        {item.data?.description && (
+          <div className="my-2 item-description w-auto sm:w-5/6 md:w-4/5 lg:w-3/4 mx-4 p-2 rounded bg-green-200/30">
+            {parse(item.data.description)}
+          </div>
+        )}
         <ItemTypes
           itemTypes={item.types}
           types={types}

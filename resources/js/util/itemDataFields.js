@@ -9,6 +9,7 @@ const itemDataFields = {
   description: null,
   modulargrid_slug: null,
   modulargrid_url: null,
+  pedalempire_url: null,
   power: {
     currentNeg: null,
     currentPos: null,
