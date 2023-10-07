@@ -2,7 +2,9 @@
 import {
   Head, Link, router, useRemember
 } from '@inertiajs/react';
-import { useCallback } from 'react';
+import {
+  useCallback, useState
+} from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
 import Table from '@/Components/Tables/Table';
@@ -17,6 +19,9 @@ import formateDatetime from '@/util/formateDatetime';
 import addUrlFilter from '@/util/addUrlFilter';
 
 const cols = [
+  {
+    key: 'selectItem', label: 'Select'
+  },
   {
     key: 'brand',
     label: () => (
@@ -67,7 +72,15 @@ const cols = [
   }
 ];
 
-const renderers = {
+const renderers = (handleSelect, selectedItems) => ({
+  selectItem: (item) => (
+    <input
+      type="checkbox"
+      className="mx-2"
+      checked={selectedItems[item.id] || false}
+      onChange={() => handleSelect(item.id)}
+    />
+  ),
   brand: (item) => item.brand && (
     <ListLink href={`/brand/${item.brand.id}`}>
       {item.brand.name}
@@ -102,13 +115,27 @@ const renderers = {
       </span>
     );
   },
-};
+});
 
 /* eslint-disable no-unused-vars */
 function ListItems({
   data, auth
 }) {
-  const [filter, setFilter] = useRemember(router.activeVisit?.url?.searchParams?.get('filter') || '');
+  const [filter, setFilter] = useRemember(
+    router.activeVisit?.url?.searchParams?.get('filter') || ''
+  );
+  const [selectedItems, setSelectedItems] = useState({});
+
+  const colRenderers = renderers((id) => {
+    if (selectedItems[id] === undefined || selectedItems[id] === false) {
+      setSelectedItems({
+        ...selectedItems,
+        [id]: true
+      });
+    } else setSelectedItems({ ...selectedItems, [id]: false });
+    // console.log(id);
+  }, selectedItems);
+
   const Pgn = useCallback(() => (
     <Pagination
       current={data.current_page}
@@ -137,7 +164,7 @@ function ListItems({
           >
             <TextInput
               label="Filter:"
-              value={filter}
+              value={typeof filter === 'string' ? filter : ''}
               onChange={(e) => setFilter(e.target.value)}
             />
             <FormButton submits>
@@ -149,7 +176,7 @@ function ListItems({
           </FormButton>
         </div>
         <Pgn />
-        <Table cols={cols} renderers={renderers} rows={data.data} />
+        <Table cols={cols} renderers={colRenderers} rows={data.data} />
         <Pgn />
       </Content>
     </AuthenticatedLayout>

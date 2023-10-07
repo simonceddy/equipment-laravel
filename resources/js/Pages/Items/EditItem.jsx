@@ -31,7 +31,7 @@ function EditItem({
   });
 
   const [brandId, setBrandId] = useState(item?.brand_id || 0);
-  console.log(item);
+  // console.log(item);
 
   const formHandler = (e) => {
     e.preventDefault();

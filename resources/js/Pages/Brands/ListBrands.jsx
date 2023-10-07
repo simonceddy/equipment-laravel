@@ -2,7 +2,7 @@
 import {
   Head, Link, router, useRemember
 } from '@inertiajs/react';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
 import Table from '@/Components/Tables/Table';
@@ -17,6 +17,9 @@ import clearUrlFilter from '@/util/clearUrlFilter';
 import addUrlFilter from '@/util/addUrlFilter';
 
 const cols = [
+  {
+    key: 'selectItem', label: 'Select'
+  },
   {
     key: 'name',
     label: () => (
@@ -63,7 +66,15 @@ const cols = [
   }
 ];
 
-const renderers = {
+const renderers = (handleSelect, selectedItems) => ({
+  selectItem: (item) => (
+    <input
+      type="checkbox"
+      className="mx-2"
+      checked={selectedItems[item.id] || false}
+      onChange={() => handleSelect(item.id)}
+    />
+  ),
   name: (brand) => (
     <Link preserveState className="w-full block text-left hover:underline" href={`/brand/${brand.id}`}>
       {brand.name}
@@ -85,12 +96,25 @@ const renderers = {
       </span>
     );
   },
-};
+});
 
 /* eslint-disable no-unused-vars */
 function ListBrands({ data, auth }) {
   // console.log(data);
   const [filter, setFilter] = useRemember(router.activeVisit?.url?.searchParams?.get('filter') || '');
+
+  const [selectedItems, setSelectedItems] = useState({});
+
+  const colRenderers = renderers((id) => {
+    if (selectedItems[id] === undefined || selectedItems[id] === false) {
+      setSelectedItems({
+        ...selectedItems,
+        [id]: true
+      });
+    } else setSelectedItems({ ...selectedItems, [id]: false });
+    console.log(id);
+  }, selectedItems);
+
   const Pgn = useCallback(() => (
     <Pagination
       current={data.current_page}
@@ -137,7 +161,7 @@ function ListBrands({ data, auth }) {
           </FormButton>
         </div>
         <Pgn />
-        <Table rows={data.data} cols={cols} renderers={renderers} />
+        <Table rows={data.data} cols={cols} renderers={colRenderers} />
         <Pgn />
       </Content>
     </AuthenticatedLayout>

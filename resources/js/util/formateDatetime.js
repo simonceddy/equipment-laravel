@@ -1,8 +1,8 @@
-const formateDatetime = (timestamp) => {
-  const d = new Date(timestamp);
-  // console.log(d);
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
-  return d.toLocaleString();
-};
+dayjs.extend(relativeTime);
+
+const formateDatetime = (timestamp) => dayjs(timestamp).fromNow(true);
 
 export default formateDatetime;

@@ -2,7 +2,7 @@
 import {
   Head, Link, router, useRemember
 } from '@inertiajs/react';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
 import Table from '@/Components/Tables/Table';
@@ -15,6 +15,9 @@ import sortUrl from '@/util/sortUrl';
 import formateDatetime from '@/util/formateDatetime';
 
 const typesCols = [
+  {
+    key: 'selectItem', label: 'Select'
+  },
   {
     key: 'name',
     label: () => (
@@ -61,7 +64,15 @@ const typesCols = [
   },
 ];
 
-const renderers = {
+const renderers = (handleSelect, selectedItems) => ({
+  selectItem: (type) => (
+    <input
+      type="checkbox"
+      className="mx-2"
+      checked={selectedItems[type.id] || false}
+      onChange={() => handleSelect(type.id)}
+    />
+  ),
   name: (type) => (
     <Link className="w-full block text-left hover:underline" href={`/type/${type.id}`}>
       {type.name}
@@ -83,12 +94,24 @@ const renderers = {
       </span>
     );
   },
-};
+});
 
 /* eslint-disable no-unused-vars */
 function ListTypes({ data, auth }) {
   // console.log(types);
   const [filter, setFilter] = useRemember('');
+
+  const [selectedItems, setSelectedItems] = useState({});
+
+  const colRenderers = renderers((id) => {
+    if (selectedItems[id] === undefined || selectedItems[id] === false) {
+      setSelectedItems({
+        ...selectedItems,
+        [id]: true
+      });
+    } else setSelectedItems({ ...selectedItems, [id]: false });
+    console.log(id);
+  }, selectedItems);
 
   const Pgn = useCallback(() => (
     <Pagination
@@ -119,7 +142,7 @@ function ListTypes({ data, auth }) {
           >
             <TextInput
               label="Filter:"
-              value={filter}
+              value={typeof filter === 'string' ? filter : ''}
               onChange={(e) => setFilter(e.target.value)}
             />
             <FormButton submits>
@@ -131,7 +154,7 @@ function ListTypes({ data, auth }) {
           </FormButton>
         </div>
         <Pgn />
-        <Table rows={data.data} cols={typesCols} renderers={renderers} />
+        <Table rows={data.data} cols={typesCols} renderers={colRenderers} />
         <Pgn />
       </Content>
     </AuthenticatedLayout>
