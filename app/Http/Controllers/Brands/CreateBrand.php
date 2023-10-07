@@ -8,6 +8,11 @@ use Inertia\Inertia;
 
 class CreateBrand extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     /**
      * Handle the incoming request.
      */

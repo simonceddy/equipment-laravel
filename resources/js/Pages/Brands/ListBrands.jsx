@@ -20,7 +20,10 @@ const cols = [
   {
     key: 'name',
     label: () => (
-      <Link href={sortUrl('/brands', router.activeVisit?.url, 'name')}>
+      <Link
+        className="w-full inline-block text-left hover:underline"
+        href={sortUrl('/brands', router.activeVisit?.url, 'name')}
+      >
         Name
       </Link>
     )
@@ -28,7 +31,10 @@ const cols = [
   {
     key: 'items_count',
     label: () => (
-      <Link href={sortUrl('/brands', router.activeVisit?.url, 'items_count')}>
+      <Link
+        className="w-full inline-block text-left hover:underline"
+        href={sortUrl('/brands', router.activeVisit?.url, 'items_count')}
+      >
         Items
       </Link>
     )
@@ -37,7 +43,7 @@ const cols = [
     key: 'created_at',
     label: () => (
       <Link
-        className="w-full block text-left hover:underline"
+        className="w-full inline-block text-left hover:underline"
         href={sortUrl('/brands', router.activeVisit?.url, 'created_at')}
       >
         Created
@@ -48,7 +54,7 @@ const cols = [
     key: 'updated_at',
     label: () => (
       <Link
-        className="w-full block text-left hover:underline"
+        className="w-full inline-block text-left hover:underline"
         href={sortUrl('/brands', router.activeVisit?.url, 'updated_at')}
       >
         Updated

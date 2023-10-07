@@ -10,6 +10,11 @@ use Inertia\Inertia;
 
 class CreateItem extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     /**
      * Handle the incoming request.
      */

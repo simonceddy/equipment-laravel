@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class DeleteItem extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     /**
      * Handle the incoming request.
      */

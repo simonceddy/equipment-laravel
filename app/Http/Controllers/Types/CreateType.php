@@ -8,6 +8,11 @@ use Inertia\Inertia;
 
 class CreateType extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     /**
      * Handle the incoming request.
      */

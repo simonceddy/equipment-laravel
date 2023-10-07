@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class StoreType extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     /**
      * Handle the incoming request.
      */

@@ -11,10 +11,54 @@ import TextInput from '@/Components/Forms/TextInput';
 import FormButton from '@/Components/Forms/FormButton';
 import baseUrl from '@/util/baseUrl';
 import PageHeader from '@/Components/PageHeader';
+import sortUrl from '@/util/sortUrl';
+import formateDatetime from '@/util/formateDatetime';
 
 const typesCols = [
-  { label: 'Name', key: 'name' },
-  { label: 'Items', key: 'items_count' },
+  {
+    key: 'name',
+    label: () => (
+      <Link
+        className="w-full block text-left hover:underline"
+        href={sortUrl('/types', router.activeVisit?.url, 'name')}
+      >
+        Name
+      </Link>
+    )
+  },
+  {
+    key: 'items_count',
+    label: () => (
+      <Link
+        className="w-full inline-block text-left hover:underline"
+        href={sortUrl('/types', router.activeVisit?.url, 'items_count')}
+      >
+        Items
+      </Link>
+    )
+  },
+  {
+    key: 'created_at',
+    label: () => (
+      <Link
+        className="w-full inline-block text-left hover:underline"
+        href={sortUrl('/types', router.activeVisit?.url, 'created_at')}
+      >
+        Created
+      </Link>
+    )
+  },
+  {
+    key: 'updated_at',
+    label: () => (
+      <Link
+        className="w-full inline-block text-left hover:underline"
+        href={sortUrl('/types', router.activeVisit?.url, 'updated_at')}
+      >
+        Updated
+      </Link>
+    )
+  },
 ];
 
 const renderers = {
@@ -22,7 +66,23 @@ const renderers = {
     <Link className="w-full block text-left hover:underline" href={`/type/${type.id}`}>
       {type.name}
     </Link>
-  )
+  ),
+  created_at: (type) => {
+    if (!type.created_at) return null;
+    return (
+      <span className="text-sm">
+        {formateDatetime(type.created_at)}
+      </span>
+    );
+  },
+  updated_at: (type) => {
+    if (!type.updated_at) return null;
+    return (
+      <span className="text-sm">
+        {formateDatetime(type.updated_at)}
+      </span>
+    );
+  },
 };
 
 /* eslint-disable no-unused-vars */

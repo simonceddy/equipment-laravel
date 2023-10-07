@@ -9,6 +9,11 @@ use Inertia\Inertia;
 
 class EditType extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     /**
      * Handle the incoming request.
      */
