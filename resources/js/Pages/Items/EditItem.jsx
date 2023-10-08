@@ -13,6 +13,7 @@ import Select from '@/Components/Forms/Select';
 import PageHeader from '@/Components/PageHeader';
 import itemDataFields from '@/util/itemDataFields';
 import Textarea from '@/Components/Forms/Textarea';
+import Tiptap from '@/Components/tiptap/Tiptap';
 
 const keys = Object.keys(itemDataFields);
 
@@ -89,16 +90,24 @@ function EditItem({
               //
               if (key === 'description') {
                 return (
-                  <Textarea
-                    outerClassName="my-3 rounded bg-blue-200/30 p-2"
-                    asCol
+                  <Tiptap
+                    content={data.description || ''}
+                    setContent={(html) => {
+                      setData({ ...data, description: html });
+                    }}
                     label="Description"
                     key="data-field-description"
-                    onChange={(e) => {
-                      setData({ ...data, description: e.target.value });
-                    }}
-                    value={data.description}
                   />
+                  // <Textarea
+                  //   outerClassName="my-3 rounded bg-blue-200/30 p-2"
+                  //   asCol
+                  //   label="Description"
+                  //   key="data-field-description"
+                  //   onChange={(e) => {
+                  //     setData({ ...data, description: e.target.value });
+                  //   }}
+                  //   value={data.description}
+                  // />
                 );
               }
               const val = itemDataFields[key];

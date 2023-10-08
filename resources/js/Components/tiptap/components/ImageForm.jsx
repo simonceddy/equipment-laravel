@@ -1,6 +1,7 @@
+/* eslint-disable import/no-unresolved */
 import { useState } from 'react';
-import Modal from '../../admin/components/Modal';
-import Button from '../../shared/components/Button';
+import Modal from '@/Components/Modal';
+import FormButton from '@/Components/Forms/FormButton';
 
 function ImageForm({
   onInput, upload, onClose, editor
@@ -63,19 +64,19 @@ function ImageForm({
             <img key={`img-${id}-awaiting`} width={image.width} src={image.src} alt="" />
           ))}
         </div>
-        <Button onClick={() => {
+        <FormButton onClick={() => {
           uploadImages();
           if (onClose) onClose();
         }}
         >
           OK
-        </Button>
-        <Button onClick={() => {
+        </FormButton>
+        <FormButton onClick={() => {
           if (onClose) onClose();
         }}
         >
           Cancel
-        </Button>
+        </FormButton>
       </div>
     </Modal>
   );

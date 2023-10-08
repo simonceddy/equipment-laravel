@@ -22,7 +22,22 @@ function ShowItem({ auth, item, types }) {
       <Head title={`${item.brand?.name} - ${item.name}`} />
       <Content>
         <div className="w-full sm:w-11/12 md:w-5/6 lg:w-4/5 p-2 row justify-between items-start">
-          {item.data?.size && (<ItemSize item={item} />)}
+          <div className="col all-center">
+            {item.data?.size && (<ItemSize item={item} />)}
+            {item.data?.price && (
+            <div className="col all-center m-1 p-1 border rounded border-slate-500">
+              {item.data.price.aud && (
+                <span>AUD - ${item.data.price.aud}</span>
+              )}
+              {item.data.price.eur && (
+                <span>EUR - €{item.data.price.eur}</span>
+              )}
+              {item.data.price.usd && (
+                <span>USD - ${item.data.price.usd}</span>
+              )}
+            </div>
+            )}
+          </div>
           <div className="col all-center">
             {item.brand && item.brand.id && (
               <h2 className="text-lg font-bold m1">

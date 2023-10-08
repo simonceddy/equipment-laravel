@@ -12,6 +12,9 @@ use App\Http\Controllers\Brands\{
     StoreBrand,
     UpdateBrand
 };
+use App\Http\Controllers\Cleanup\{
+    TrimItemNames,
+};
 use App\Http\Controllers\Items\{
     AddTypeToItem,
     CreateItem,
@@ -69,6 +72,7 @@ Route::put('/brand/{brand}', UpdateBrand::class);
 Route::delete('/brand/{brand}', DeleteBrand::class);
 
 Route::get('/items', ListItems::class);
+Route::get('/items/trimNames', TrimItemNames::class);
 Route::get('/item/create', CreateItem::class);
 Route::post('/item/store', StoreItem::class);
 Route::get('/item/{item}', ShowItem::class);

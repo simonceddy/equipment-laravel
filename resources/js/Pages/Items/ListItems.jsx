@@ -17,6 +17,7 @@ import sortUrl from '@/util/sortUrl';
 import PageHeader from '@/Components/PageHeader';
 import formateDatetime from '@/util/formateDatetime';
 import addUrlFilter from '@/util/addUrlFilter';
+import getTypeUrl from '@/util/getTypeUrl';
 
 const cols = [
   {
@@ -126,6 +127,8 @@ function ListItems({
   );
   const [selectedItems, setSelectedItems] = useState({});
 
+  const searchParams = new URLSearchParams(window.location.search);
+
   const colRenderers = renderers((id) => {
     if (selectedItems[id] === undefined || selectedItems[id] === false) {
       setSelectedItems({
@@ -151,29 +154,71 @@ function ListItems({
     >
       <Head title="Items" />
       <Content>
-        <div className="row justify-between items-center w-full">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const f = filter.trim();
-              if (f.length > 0) {
-                router.get(addUrlFilter('/items', router.activeVisit.url, f));
-              }
-            }}
-            className="row all-center m-2 p-2"
-          >
-            <TextInput
-              label="Filter:"
-              value={typeof filter === 'string' ? filter : ''}
-              onChange={(e) => setFilter(e.target.value)}
-            />
-            <FormButton submits>
-              Go
+        <div className="col all-center w-full">
+          <div className="row justify-start items-center w-full">
+            <FormButton
+              onClick={() => {
+                router.get(getTypeUrl('/items', searchParams, '1'));
+              }}
+            >
+              Eurorack
             </FormButton>
-          </form>
-          <FormButton onClick={() => router.get('/item/create')}>
-            Add New Item
-          </FormButton>
+            <FormButton
+              onClick={() => {
+                router.get(getTypeUrl('/items', searchParams, '2'));
+              }}
+            >
+              Pedals
+            </FormButton>
+            <FormButton
+              onClick={() => {
+                router.get(getTypeUrl('/items', searchParams, '63'));
+              }}
+            >
+              Synths
+            </FormButton>
+            <FormButton
+              onClick={() => {
+                router.get(getTypeUrl('/items', searchParams, '40'));
+              }}
+            >
+              MIDI
+            </FormButton>
+            <FormButton
+              onClick={() => {
+                router.get(getTypeUrl('/items', searchParams, '3'));
+              }}
+            >
+              500 Series
+            </FormButton>
+          </div>
+          <div className="row justify-between items-center w-full">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const f = filter.trim();
+                if (f.length > 0) {
+                  router.get(addUrlFilter('/items', router.activeVisit.url, f));
+                }
+              }}
+              className="row all-center m-2 p-2"
+            >
+              <TextInput
+                label="Filter:"
+                value={typeof filter === 'string' ? filter : ''}
+                onChange={(e) => setFilter(e.target.value)}
+              />
+              <FormButton submits>
+                Go
+              </FormButton>
+            </form>
+            <FormButton onClick={() => router.get('/item/create')}>
+              Add New Item
+            </FormButton>
+            <FormButton onClick={() => router.get('/items/trimNames')}>
+              Trim Item Names
+            </FormButton>
+          </div>
         </div>
         <Pgn />
         <Table cols={cols} renderers={colRenderers} rows={data.data} />

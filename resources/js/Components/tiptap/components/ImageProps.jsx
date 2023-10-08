@@ -1,7 +1,8 @@
+/* eslint-disable import/no-unresolved */
 import { useState } from 'react';
-import Button from '../../shared/components/Button';
-import Modal from '../../admin/components/Modal';
-import FormInput from '../../admin/components/Forms/FormInput';
+import Modal from '@/Components/Modal';
+import TextInput from '@/Components/Forms/TextInput';
+import FormButton from '@/Components/Forms/FormButton';
 
 const wrapOptions = [
   { label: 'No wrap', value: 0 },
@@ -24,7 +25,7 @@ function ImageProps({
       <div
         className="col p-2 rounded-lg fl bg-aqua-spring border-2 border-cornflower-blue z-50"
       >
-        <FormInput
+        <TextInput
           label="Width (px):"
           value={attributes.width || ''}
           onChange={(e) => setAttributes({
@@ -35,7 +36,7 @@ function ImageProps({
           name="img-props-width"
           number
         />
-        <FormInput
+        <TextInput
           label="Height (px):"
           value={attributes.height || ''}
           onChange={(e) => setAttributes({
@@ -67,19 +68,19 @@ function ImageProps({
             ))}
           </select>
         </label>
-        <Button onClick={() => {
+        <FormButton onClick={() => {
           setImage(attributes);
           if (onClose) onClose();
         }}
         >
           OK
-        </Button>
-        <Button onClick={() => {
+        </FormButton>
+        <FormButton onClick={() => {
           if (onClose) onClose();
         }}
         >
           Cancel
-        </Button>
+        </FormButton>
       </div>
     </Modal>
   );

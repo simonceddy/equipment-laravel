@@ -1,4 +1,5 @@
-import DropdownMenu from '../../admin/components/Forms/DropdownMenu';
+/* eslint-disable import/no-unresolved */
+import Select from '@/Components/Forms/Select';
 
 const options = [
   { value: 0, label: 'Normal' },
@@ -19,7 +20,7 @@ const options = [
 function TextSizeSelector({ editor }) {
   return (
     <div>
-      <DropdownMenu
+      <Select
         value={editor.isActive('heading') ? editor.getAttributes('heading').level : 0}
         onChange={(e) => {
           if (e.target.value === '0' && editor.isActive('heading')) {

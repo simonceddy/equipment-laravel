@@ -1,4 +1,5 @@
-import DropdownMenu from '../../admin/components/Forms/DropdownMenu';
+/* eslint-disable import/no-unresolved */
+import Select from '@/Components/Forms/Select';
 
 const options = [
   { value: 'Sen', label: 'Select font...', className: 'font-sans' },
@@ -20,7 +21,7 @@ function FontSelector({ editor }) {
   // console.log(editor.getAttributes('fontFamily'));
   return (
     <div>
-      <DropdownMenu
+      <Select
         value={0}
         onChange={(e) => {
           editor.chain().focus().setFontFamily(e.target.value).run();
