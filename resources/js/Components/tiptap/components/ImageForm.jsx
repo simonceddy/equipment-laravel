@@ -54,7 +54,7 @@ function ImageForm({
   };
 
   return (
-    <Modal>
+    <Modal show onClose={onClose}>
       <div
         className="col p-2 rounded-lg fl bg-aqua-spring border-2 border-cornflower-blue z-50"
       >

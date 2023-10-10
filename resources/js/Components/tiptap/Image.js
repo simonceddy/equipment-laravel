@@ -35,7 +35,7 @@ import { uploadImagePlugin } from './uploadImage';
 const IMAGE_INPUT_REGEX = /!\[(.+|:?)\]\((\S+)(?:(?:\s+)["'](\S+)["'])?\)/;
 
 const classNameFactory = (attributes) => {
-  let classNames = 'm-2';
+  let classNames = 'm-2 clickable-image';
   if (attributes.float) {
     switch (attributes.float) {
       case 0:
@@ -84,6 +84,9 @@ export const TipTapCustomImage = (uploadFn) => Node.create({
       },
       title: {
         default: null,
+      },
+      role: {
+        default: 'presentation',
       },
       class: {
         default: null,

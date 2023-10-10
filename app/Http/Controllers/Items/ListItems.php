@@ -27,9 +27,21 @@ class ListItems extends Controller
         $type = $request->query('type', null);
 
         if ($type !== null) {
-            $q = Item::whereHas('types', function ($query) use ($type) {
-                $query->where('item_type_id', $type);
-            });
+            $t = explode(',', $type);
+            $c = count($t);
+            if ($c === 0) {
+                // TODO error somewhere
+                dd('Oi the types are wrong!');
+            } else {
+                $q = Item::whereHas('types', function ($query) use ($t) {
+                    $query->where('item_type_id', $t[0]);
+                });
+                if ($c > 1) {
+                    $q->whereHas('types', function ($query) use ($t) {
+                        $query->where('item_type_id', $t[1]);
+                    });
+                }
+            }
         } else {
             if ($sort === 'brand') {
                 $sort = 'brands.name';
@@ -53,7 +65,8 @@ class ListItems extends Controller
         // $lastPage = $data->lastPage();
         // dd($data);
         return Inertia::render('Items/ListItems', [
-            'data' => $data
+            'data' => $data,
+            'types' => ItemType::all(['id', 'name'])
         ]);
     }
 }

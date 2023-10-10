@@ -2,11 +2,11 @@
 import Select from '@/Components/Forms/Select';
 
 const options = [
-  { value: 'Sen', label: 'Select font...', className: 'font-sans' },
-  { value: 'Sen', label: 'Sen', className: 'font-sans' },
-  { value: 'Moon Dance', label: 'Moon Dance', className: '' },
-  { value: 'Quintessential', label: 'Quintessential', className: '' },
-  { value: 'monospace', label: 'monospace', className: 'font-mono' },
+  { id: 'Sen', name: 'Select font...' },
+  { id: 'Sen', name: 'Sen' },
+  { id: 'Moon Dance', name: 'Moon Dance' },
+  { id: 'Quintessential', name: 'Quintessential' },
+  { id: 'monospace', name: 'monospace' },
 ];
 
 /**

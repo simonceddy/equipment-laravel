@@ -16,6 +16,9 @@
             @apply justify-center items-center;
         }
 
+        .clickable-image {
+            @apply cursor-pointer;
+        }
     }
 
 .item-description > p {

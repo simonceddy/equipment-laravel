@@ -19,9 +19,9 @@ function ImageProps({
     ...image
   });
 
-  console.log(attributes);
+  // console.log(attributes);
   return (
-    <Modal>
+    <Modal show onClose={onClose}>
       <div
         className="col p-2 rounded-lg fl bg-aqua-spring border-2 border-cornflower-blue z-50"
       >
@@ -34,9 +34,9 @@ function ImageProps({
           })}
           min={0}
           name="img-props-width"
-          number
+          type="number"
         />
-        <TextInput
+        {/* <TextInput
           label="Height (px):"
           value={attributes.height || ''}
           onChange={(e) => setAttributes({
@@ -46,7 +46,7 @@ function ImageProps({
           min={0}
           name="img-props-height"
           number
-        />
+        /> */}
         <label
           className="row w-full my-2 justify-between items-center"
           htmlFor="wrap-input"

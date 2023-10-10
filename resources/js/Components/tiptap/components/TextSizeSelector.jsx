@@ -2,11 +2,11 @@
 import Select from '@/Components/Forms/Select';
 
 const options = [
-  { value: 0, label: 'Normal' },
-  { value: 2, label: 'Heading 2' },
-  { value: 3, label: 'Heading 3' },
-  { value: 4, label: 'Heading 4' },
-  { value: 5, label: 'Heading 5' },
+  { id: 0, name: 'Normal' },
+  { id: 2, name: 'Heading 2' },
+  { id: 3, name: 'Heading 3' },
+  { id: 4, name: 'Heading 4' },
+  { id: 5, name: 'Heading 5' },
 ];
 
 /**

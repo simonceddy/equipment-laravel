@@ -90,14 +90,18 @@ function EditItem({
               //
               if (key === 'description') {
                 return (
-                  <Tiptap
-                    content={data.description || ''}
-                    setContent={(html) => {
-                      setData({ ...data, description: html });
-                    }}
-                    label="Description"
+                  <div
                     key="data-field-description"
-                  />
+                    className="min-h-[300px]"
+                  >
+                    <Tiptap
+                      content={data.description || ''}
+                      setContent={(html) => {
+                        setData({ ...data, description: html });
+                      }}
+                      label="Description"
+                    />
+                  </div>
                   // <Textarea
                   //   outerClassName="my-3 rounded bg-blue-200/30 p-2"
                   //   asCol

@@ -2,6 +2,7 @@
 import parse from 'html-react-parser';
 import { Head, Link, router } from '@inertiajs/react';
 import { confirmAlert } from 'react-confirm-alert';
+import { useEffect, useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
 import FormButton from '@/Components/Forms/FormButton';
@@ -11,15 +12,39 @@ import PageHeader from '@/Components/PageHeader';
 import ItemSize from '@/Components/Items/ItemSize';
 import MGLink from '@/Components/MGLink';
 import PELink from '@/Components/PELink';
+import Modal from '@/Components/Modal';
 
 function ShowItem({ auth, item, types }) {
   // console.log(item.data);
+  const [viewImage, setViewImage] = useState(false);
+  useEffect(() => {
+    const els = document.getElementsByClassName('clickable-image');
+    if (els.length > 0) {
+      Array.from(els).forEach((el) => {
+        el.addEventListener('click', () => {
+          setViewImage(el.src);
+        });
+        // console.log(el.src);
+      });
+    }
+  }, []);
+
   return (
     <AuthenticatedLayout
       user={auth.user}
       header={<PageHeader>{item.name}</PageHeader>}
     >
       <Head title={`${item.brand?.name} - ${item.name}`} />
+      {viewImage && (
+        <Modal
+          show
+          onClose={() => {
+            setViewImage(false);
+          }}
+        >
+          <img src={viewImage} alt={`${item.name}-${viewImage}`} />
+        </Modal>
+      )}
       <Content>
         <div className="w-full sm:w-11/12 md:w-5/6 lg:w-4/5 p-2 row justify-between items-start">
           <div className="col all-center">

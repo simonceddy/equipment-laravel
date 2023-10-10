@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\{
     ProfileController,
+    UploadImage,
 };
 use App\Http\Controllers\Brands\{
     ListBrands,
@@ -63,6 +64,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('/storage/upload', UploadImage::class);
+
 Route::get('/brands', ListBrands::class);
 Route::get('/brand/create', CreateBrand::class);
 Route::post('/brand/store', StoreBrand::class);
@@ -89,6 +92,5 @@ Route::put('/type/{type}', UpdateType::class);
 Route::get('/type/{type}', ShowType::class);
 Route::delete('/type/{type}', DeleteType::class);
 Route::get('/types', ListTypes::class);
-
 
 require __DIR__.'/auth.php';

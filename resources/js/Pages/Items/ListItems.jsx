@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-unresolved */
 import {
   Head, Link, router, useRemember
@@ -18,6 +19,7 @@ import PageHeader from '@/Components/PageHeader';
 import formateDatetime from '@/util/formateDatetime';
 import addUrlFilter from '@/util/addUrlFilter';
 import getTypeUrl from '@/util/getTypeUrl';
+import TypeFilter from '@/Components/Items/TypeFilter';
 
 const cols = [
   {
@@ -118,9 +120,22 @@ const renderers = (handleSelect, selectedItems) => ({
   },
 });
 
+/**
+ *
+ * @param {URLSearchParams} searchParams
+ */
+function getTypesFromSearchParams(searchParams) {
+  if (searchParams.has('type')) {
+    const typeString = searchParams.get('type');
+    const bits = typeString.split(',', 2);
+    return Object.fromEntries(bits.map((v, id) => [`filter${(id + 1)}`, Number(v)]));
+  }
+  return null;
+}
+
 /* eslint-disable no-unused-vars */
 function ListItems({
-  data, auth
+  data, auth, types
 }) {
   const [filter, setFilter] = useRemember(
     router.activeVisit?.url?.searchParams?.get('filter') || ''
@@ -147,6 +162,8 @@ function ListItems({
     />
   ), [data]);
 
+  const typeParam = getTypesFromSearchParams(searchParams);
+
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -156,7 +173,19 @@ function ListItems({
       <Content>
         <div className="col all-center w-full">
           <div className="row justify-start items-center w-full">
-            <FormButton
+            <TypeFilter
+              filters={typeParam}
+              types={types}
+              onSubmit={(filters) => {
+                const f = [];
+                if (filters.filter1 !== 0) f.push(filters.filter1);
+
+                if (filters.filter2 !== 0) f.push(filters.filter2);
+                const url = getTypeUrl('/items', searchParams, f.join(','));
+                router.get(url);
+              }}
+            />
+            {/* <FormButton
               onClick={() => {
                 router.get(getTypeUrl('/items', searchParams, '1'));
               }}
@@ -190,7 +219,7 @@ function ListItems({
               }}
             >
               500 Series
-            </FormButton>
+            </FormButton> */}
           </div>
           <div className="row justify-between items-center w-full">
             <form

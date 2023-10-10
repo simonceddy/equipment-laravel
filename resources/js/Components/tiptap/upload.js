@@ -2,7 +2,7 @@ import axios from 'axios';
 import { MEDIA_URL } from '../../consts';
 
 export function srcUrl(src) {
-  return `${MEDIA_URL}/get/${src}`;
+  return `${MEDIA_URL}/${src}`;
 }
 
 /**
@@ -11,8 +11,8 @@ export function srcUrl(src) {
  * @returns {string|null}
  */
 export async function upload(file) {
-  const b = await file.arrayBuffer();
-  console.log(b);
+  // const b = await file.arrayBuffer();
+  // console.log(b);
   const formData = new FormData();
   formData.append('uploaded-file', file);
   const res = await axios.post(`${MEDIA_URL}/upload`, formData, {
@@ -20,6 +20,6 @@ export async function upload(file) {
       'Content-Type': 'multipart/form-data'
     }
   });
-  console.log(res);
+  // console.log(res);
   return res.data.src ? srcUrl(res.data.src) : null;
 }
