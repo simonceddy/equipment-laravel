@@ -7,6 +7,8 @@ const itemDataFields = {
     height: null,
   },
   description: null,
+  modulargrid_id: null,
+  pedalempire_id: null,
   modulargrid_slug: null,
   modulargrid_url: null,
   pedalempire_url: null,

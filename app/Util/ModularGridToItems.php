@@ -177,6 +177,9 @@ class ModularGridToItems
                     ],
                     'description' => $module['description'] ?? null,
                     'modulargrid_slug' => $module['slug'] ?? null,
+                    'pedalempire_url' => null,
+                    'pedalempire_id' => null,
+                    'modulargrid_id' => $module['id'] ?? null,
                     'modulargrid_url' => $module['slug']
                         ? $this->getModuleMGLink($module['slug'])
                         : null,

@@ -1,17 +1,47 @@
 /* eslint-disable import/no-unresolved */
-import { Head, router } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { confirmAlert } from 'react-confirm-alert';
-import ItemList from '@/Components/Items/ItemList';
-import ItemListItem from '@/Components/Items/ItemListItem';
+import { useState } from 'react';
+// import ItemList from '@/Components/Items/ItemList';
+// import ItemListItem from '@/Components/Items/ItemListItem';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Content from '@/Components/Content';
-import ListLink from '@/Components/ListLink';
+// import ListLink from '@/Components/ListLink';
 import FormButton from '@/Components/Forms/FormButton';
 import PageHeader from '@/Components/PageHeader';
 import ExternalLink from '@/Components/ExternalLink';
+import Table from '@/Components/Tables/Table';
+
+const renderers = (handleSelect, selectedItems) => ({
+  selectItem: (item) => (
+    <input
+      type="checkbox"
+      className="mx-2"
+      checked={selectedItems[item.id] || false}
+      onChange={() => handleSelect(item.id)}
+    />
+  ),
+  name: (item) => (
+    <Link preserveState className="w-full block text-left hover:underline" href={`/item/${item.id}`}>
+      {item.name}
+    </Link>
+  ),
+});
 
 function ShowBrand({ auth, brand }) {
   // console.log(brand);
+  const [selectedItems, setSelectedItems] = useState({});
+
+  const colRenderers = renderers((id) => {
+    if (selectedItems[id] === undefined || selectedItems[id] === false) {
+      setSelectedItems({
+        ...selectedItems,
+        [id]: true
+      });
+    } else setSelectedItems({ ...selectedItems, [id]: false });
+    console.log(id);
+  }, selectedItems);
+
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -21,13 +51,23 @@ function ShowBrand({ auth, brand }) {
       <Content>
 
         {brand.url && brand.url.length > 0 && (<ExternalLink url={brand.url} />)}
-        <div className="m-2 border-2 p-2 border-slate-500 col justify-start items-start whitespace-pre-wrap overflow-y-scroll h-[500px] w-[500px]">
+        <div className="my-2 mx-auto border-2 p-2 border-slate-500 col justify-start items-start whitespace-pre-wrap overflow-y-scroll w-11/12">
           <span className="row all-center w-full">
             There {brand.items?.length === 1 ? 'is' : 'are'}
             <span className="text-xl mx-1.5 italic font-mono font-bold">{brand.items?.length || 0}</span>
             {brand.name} item{brand.items?.length === 1 ? '' : 's'} in the database
           </span>
-          <ItemList>
+          {brand.items && (
+            <Table
+              rows={brand.items}
+              cols={[
+                { key: 'selectItem' },
+                { key: 'name', label: 'Name' }
+              ]}
+              renderers={colRenderers}
+            />
+          )}
+          {/* <ItemList>
             {brand.items.map((item, id) => (
               <ItemListItem key={`item-list-item-${id}`}>
                 <ListLink href={`/item/${item.id}`}>
@@ -35,7 +75,7 @@ function ShowBrand({ auth, brand }) {
                 </ListLink>
               </ItemListItem>
             ))}
-          </ItemList>
+          </ItemList> */}
         </div>
         <div className="row w-full justify-around items-center">
           <FormButton onClick={() => router.get(`/item/create?brandId=${brand.id}`)}>

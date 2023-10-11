@@ -202,8 +202,13 @@ class PedalEmpireToItems
                     ? $item['price']['amount']
                     : null,
             ],
+            'modulargrid_url' => null,
             'pedalempire_url' => $peUrl,
             'description' => $description,
+            'modulargrid_id' => null,
+            'pedalempire_id' => ($product && isset($product['id']))
+                ? $product['id']
+                : null,
         ];
 
         $tA = [];
