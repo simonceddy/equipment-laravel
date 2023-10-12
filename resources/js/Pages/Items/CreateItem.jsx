@@ -11,6 +11,7 @@ import PageHeader from '@/Components/PageHeader';
 import Select from '@/Components/Forms/Select';
 import ItemTypes from '@/Components/Items/ItemTypes';
 import itemDataFields from '@/util/itemDataFields';
+import Tiptap from '@/Components/tiptap/Tiptap';
 
 const keys = Object.keys(itemDataFields);
 
@@ -75,6 +76,32 @@ function CreateItem({
           <div>
             {keys.map((key) => {
               //
+              if (key === 'description') {
+                return (
+                  <div
+                    key="data-field-description"
+                    className="min-h-[300px]"
+                  >
+                    <Tiptap
+                      content={data.description || ''}
+                      setContent={(html) => {
+                        setData({ ...data, description: html });
+                      }}
+                      label="Description"
+                    />
+                  </div>
+                  // <Textarea
+                  //   outerClassName="my-3 rounded bg-blue-200/30 p-2"
+                  //   asCol
+                  //   label="Description"
+                  //   key="data-field-description"
+                  //   onChange={(e) => {
+                  //     setData({ ...data, description: e.target.value });
+                  //   }}
+                  //   value={data.description}
+                  // />
+                );
+              }
               const val = itemDataFields[key];
               if (val !== null && typeof val === 'object') {
                 const subKeys = Object.keys(val);

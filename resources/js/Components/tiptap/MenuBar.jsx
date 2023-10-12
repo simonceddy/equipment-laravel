@@ -9,7 +9,7 @@ import {
   FaAlignLeft as AlignLeftIcon,
   FaAlignRight as AlignRightIcon,
   FaAlignJustify as AlignJustifyIcon,
-  FaParagraph as ParagraphIcon,
+  // FaParagraph as ParagraphIcon,
   FaListUl as BulletListIcon,
   FaListOl as OrderedListIcon,
   FaQuoteLeft as BlockquoteIcon,

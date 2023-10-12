@@ -12,7 +12,7 @@ import FormButton from '@/Components/Forms/FormButton';
 import Select from '@/Components/Forms/Select';
 import PageHeader from '@/Components/PageHeader';
 import itemDataFields from '@/util/itemDataFields';
-import Textarea from '@/Components/Forms/Textarea';
+// import Textarea from '@/Components/Forms/Textarea';
 import Tiptap from '@/Components/tiptap/Tiptap';
 
 const keys = Object.keys(itemDataFields);
