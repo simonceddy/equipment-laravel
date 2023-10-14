@@ -23,8 +23,10 @@ use App\Http\Controllers\Items\{
     ListItems,
     EditItem,
     RemoveTypeFromItem,
+    SetBrandForMany,
     ShowItem,
     StoreItem,
+    UpdateBrandForMany,
     UpdateItem
 };
 use App\Http\Controllers\Types\{
@@ -76,6 +78,8 @@ Route::delete('/brand/{brand}', DeleteBrand::class);
 
 Route::get('/items', ListItems::class);
 Route::get('/items/trimNames', TrimItemNames::class);
+Route::get('/items/updateBrand', SetBrandForMany::class);
+Route::post('/items/updateBrand', UpdateBrandForMany::class);
 Route::get('/item/create', CreateItem::class);
 Route::post('/item/store', StoreItem::class);
 Route::get('/item/{item}', ShowItem::class);

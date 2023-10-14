@@ -247,6 +247,18 @@ function ListItems({
             <FormButton onClick={() => router.get('/items/trimNames')}>
               Trim Item Names
             </FormButton>
+            <FormButton onClick={() => {
+              const ids = Object.keys(selectedItems)
+                .filter((i) => selectedItems[i] === true)
+                .join(',');
+
+              const params = new URLSearchParams();
+              params.set('items', ids);
+              router.get(`/items/updateBrand?${params.toString()}`);
+            }}
+            >
+              Change Brand for selected
+            </FormButton>
           </div>
         </div>
         <Pgn />
