@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9204ab38c18018b44155df26818c8a36",
+    "content-hash": "15e2352d7568f3040e24f81b51672e19",
     "packages": [
         {
             "name": "brick/math",
@@ -9003,12 +9003,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/simonceddy/mg-utils.git",
-                "reference": "a44bb1942c969eba7127a89580b25c9ba2f2abc1"
+                "reference": "9792ee5ca3d1cb02c7e1eec6147283d611c4c389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simonceddy/mg-utils/zipball/a44bb1942c969eba7127a89580b25c9ba2f2abc1",
-                "reference": "a44bb1942c969eba7127a89580b25c9ba2f2abc1",
+                "url": "https://api.github.com/repos/simonceddy/mg-utils/zipball/9792ee5ca3d1cb02c7e1eec6147283d611c4c389",
+                "reference": "9792ee5ca3d1cb02c7e1eec6147283d611c4c389",
                 "shasum": ""
             },
             "require": {
@@ -9016,6 +9016,7 @@
                 "guzzlehttp/guzzle": "^7.8",
                 "illuminate/cache": "^10.24",
                 "kevinrob/guzzle-cache-middleware": "^4.1",
+                "simoneddy/robots-helper": "dev-master",
                 "symfony/css-selector": "^6.3",
                 "symfony/dom-crawler": "^6.3"
             },
@@ -9043,7 +9044,51 @@
                 "source": "https://github.com/simonceddy/mg-utils/tree/master",
                 "issues": "https://github.com/simonceddy/mg-utils/issues"
             },
-            "time": "2023-10-14T03:11:13+00:00"
+            "time": "2023-10-15T09:18:10+00:00"
+        },
+        {
+            "name": "simoneddy/robots-helper",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simonceddy/robots-helper.git",
+                "reference": "4cd37a54d517ff777ed172529a4c1a4caedaba44"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/simonceddy/robots-helper/zipball/4cd37a54d517ff777ed172529a4c1a4caedaba44",
+                "reference": "4cd37a54d517ff777ed172529a4c1a4caedaba44",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "^7.4",
+                "symfony/var-dumper": "^6.3"
+            },
+            "default-branch": true,
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Eddy\\Robots\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simon Eddy",
+                    "email": "simon@simoneddy.com.au"
+                }
+            ],
+            "description": "Utility for working with robots.txt files",
+            "support": {
+                "source": "https://github.com/simonceddy/robots-helper/tree/master",
+                "issues": "https://github.com/simonceddy/robots-helper/issues"
+            },
+            "time": "2023-10-15T09:17:17+00:00"
         },
         {
             "name": "spatie/backtrace",
@@ -9478,7 +9523,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "simoneddy/crawlers": 20
+        "simoneddy/crawlers": 20,
+        "simoneddy/robots-helper": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
