@@ -3197,16 +3197,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.11.21",
+            "version": "v0.11.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "bcb22101107f3bf770523b65630c9d547f60c540"
+                "reference": "128fa1b608be651999ed9789c95e6e2a31b5802b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/bcb22101107f3bf770523b65630c9d547f60c540",
-                "reference": "bcb22101107f3bf770523b65630c9d547f60c540",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/128fa1b608be651999ed9789c95e6e2a31b5802b",
+                "reference": "128fa1b608be651999ed9789c95e6e2a31b5802b",
                 "shasum": ""
             },
             "require": {
@@ -3235,7 +3235,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "0.11.x-dev"
+                    "dev-0.11": "0.11.x-dev"
                 },
                 "bamarni-bin": {
                     "bin-links": false,
@@ -3271,9 +3271,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.11.21"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.11.22"
             },
-            "time": "2023-09-17T21:15:54+00:00"
+            "time": "2023-10-14T21:56:36+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -9003,12 +9003,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/simonceddy/mg-utils.git",
-                "reference": "edf64f9efc5c8b8c5b8e3965d3ff61472d72fab1"
+                "reference": "a44bb1942c969eba7127a89580b25c9ba2f2abc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simonceddy/mg-utils/zipball/edf64f9efc5c8b8c5b8e3965d3ff61472d72fab1",
-                "reference": "edf64f9efc5c8b8c5b8e3965d3ff61472d72fab1",
+                "url": "https://api.github.com/repos/simonceddy/mg-utils/zipball/a44bb1942c969eba7127a89580b25c9ba2f2abc1",
+                "reference": "a44bb1942c969eba7127a89580b25c9ba2f2abc1",
                 "shasum": ""
             },
             "require": {
@@ -9043,7 +9043,7 @@
                 "source": "https://github.com/simonceddy/mg-utils/tree/master",
                 "issues": "https://github.com/simonceddy/mg-utils/issues"
             },
-            "time": "2023-10-12T07:25:22+00:00"
+            "time": "2023-10-14T03:11:13+00:00"
         },
         {
             "name": "spatie/backtrace",
