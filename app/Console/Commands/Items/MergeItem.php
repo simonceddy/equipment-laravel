@@ -21,10 +21,9 @@ class MergeItem extends Command
      */
     protected $description = 'Locate and merge duplicates of the item with the given ID.';
 
-    public function __construct(private ?MergeItems $merge = null)
+    public function __construct()
     {
         parent::__construct();
-        if (!$merge) $this->merge = new MergeItems();
     }
 
     /**
@@ -37,7 +36,8 @@ class MergeItem extends Command
             $this->error('ID must be numerical!');
             exit(1);
         }
+        $merge = new MergeItems($this->output);
 
-        $this->merge->findSimilar($id);
+        $merge->findSimilar($id);
     }
 }

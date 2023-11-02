@@ -2,12 +2,12 @@
 namespace App\Util;
 
 use App\Models\Item;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class MergeItems
 {
-    public function __construct()
-    {
-    }
+    public function __construct(private OutputInterface $output)
+    {}
 
     public function findSimilar(int $id)
     {
@@ -20,7 +20,6 @@ class MergeItems
         $item->load('brand');
         $itemName = $item->getAttribute('name');
         $brandName = $item->brand()->first()->getAttribute('name');
-        // dd($brandName);
         $similar = Item::with('brand')
             ->join('brands', 'items.brand_id', '=', 'brands.id')
             ->select('items.*')
@@ -29,13 +28,17 @@ class MergeItems
             ->get();
         $t = $similar->count();
         if ($t <= 1) {
-            echo 'No duplicates located.' . PHP_EOL;
-        } else {
-            echo 'Located ' . $t . ' items' . PHP_EOL;
-            foreach ($similar as $i) {
-                echo $i->brand()->first()->getAttribute('name') . ' ' . $i->getAttribute('name') . PHP_EOL;
-            }
+            $this->output->writeln('No duplicates located.');
+            exit(1);
         }
-        // dd($similar);
+
+
+        $this->output->writeln('Located ' . $t . ' items');
+        foreach ($similar as $i) {
+            $this->output->writeln(
+                $i->brand()->first()['name'] . ' ' . $i['name']
+            );
+        }
+
     }
 }

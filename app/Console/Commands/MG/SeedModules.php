@@ -23,12 +23,6 @@ class SeedModules extends Command
      */
     protected $description = 'Seed modules from a rack on modulargrid';
 
-    public function __construct(private ?Wrapper $mg = null)
-    {
-        parent::__construct();
-        if (!$mg) $this->mg = new Wrapper();
-    }
-
     /**
      * Execute the console command.
      */
@@ -38,7 +32,7 @@ class SeedModules extends Command
         if (!$url) $this->error('URL is required!');
         else {
             try {
-                (new ModularGridToItems($this->mg))->processURL($url);
+                (new ModularGridToItems(new Wrapper()))->processURL($url);
                 $this->info('Items stored successfully!');
             } catch (\Throwable $e) {
                 $this->error('An error was encountered!');

@@ -29,12 +29,6 @@ class SeedFromJson extends Command
      */
     protected $description = 'Seed database from json for a modulargrid rack.';
 
-    public function __construct(private ?Wrapper $mg = null)
-    {
-        parent::__construct();
-        if (!$mg) $this->mg = new Wrapper();
-    }
-
     /**
      * Execute the console command.
      */
@@ -50,8 +44,8 @@ class SeedFromJson extends Command
                 'Could not locate json file: ' . $path
             );
         }
-
-        (new ModularGridToItems($this->mg))->process($disk->get($path));
+        $mg = new Wrapper();
+        (new ModularGridToItems($mg))->process($disk->get($path));
         $this->info('Finished!');
     }
 }
